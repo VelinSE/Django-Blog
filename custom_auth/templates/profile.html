@@ -1,0 +1,123 @@
+{% extends 'login.html' %} 
+
+{% load static %}
+
+{% block body %}
+<section class="main-section mt-5">
+    <div class="row">
+        <div class="col-sm-8">
+            <ul class="tabs">
+                <li class="tab">
+                    <a href="#tickets" class="text-black font-weight-bold">Tickets</a>
+                </li>
+                <li class="tab">
+                    <a href="#camps" class="text-black font-weight-bold">Campings</a>
+                </li>
+            </ul>
+            <div id="tickets" class="card-deck flex-column">
+                <div class="card">
+                    <div class="card-header purple-gradient-reverse white-text"><i class="fas fa-ticket-alt"></i> Your tickets</div>
+                </div>
+                {% if tickets is None %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>No tickets yet!</h4>
+                            <div class="d-flex w-100 justify-content-center">
+                                <a class="btn btn-lg btn-outline-warning py-3 px-5 font-weight-bold" href="{% url 'tickets' %}">
+                                    CLICK HERE <i class="fas fa-plus-circle ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    {% for ticket in tickets %}
+                        <div class="card mb-3">
+                            <div class="card-header"></div>
+                            <div class="card-body d-flex justify-content-between">
+                                <div>
+                                    <img class="ticket-logo" src="{% static 'img/logo-black.svg' %}" alt="">
+                                </div>
+                                
+                                <div class="d-flex flex-column flex-grow-1">
+                                    <h4 class="card-title iceland-font mt-0 mb-2 mx-auto">MASCARADA</h4>
+                                    <div class="d-flex justify-content-around">
+                                        <div class="card-text m-0">Name: <p class="m-0 border-bottom border-dark font-weight-bold">{{ ticket.first_name }} {{ ticket.last_name }}</p> </div>
+                                        <div class="card-text m-0">Date of birth: <p class="m-0 border-bottom border-dark font-weight-bold">{{ ticket.birth_date }}</p> </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="align-self-start">
+                                    <button class="btn amber darken-2 text-white font-weight-bold ticket-resend" id="{{ticket.id}}">Send to email</button>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="card-footer border-top-dark white"></div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div id="camps" class="card-group flex-column">
+                <div class="card">
+                    <div class="card-header purple-gradient-reverse white-text"><i class="fas fa-ticket-alt"></i> Your campings</div>
+                </div>
+                {% if campings is None %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>No camping spots reserved yet!</h4>
+                            <div class="d-flex w-100 justify-content-center">
+                                <a class="btn btn-lg btn-outline-success py-3 px-5 font-weight-bold" href="{% url 'camping' %}">
+                                    CLICK HERE <i class="fas fa-plus-circle ml-2"></i>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                {% else %}
+                    {% for camp in campings %}
+                        {% if loop.first %}
+                            <div class="d-flex">
+                        {% endif %}
+                        <div class="d-flex flex-column">
+                            <div class="card">
+                        
+                                <div class="card-body">
+                        
+                                    <h5 class="card-title">CAMPING SPOT {{ loop.index }}</h5>
+                                    <p class="card-text">Visitor: {{ camp.visitor.email }}</p>
+                                    <p class="card-text">Spot Number: {{ camp.spot.camping_id }}</p>
+                                    <p class="card-text">Number of beds:
+                                        <strong>{{ camp.spot.beds_taken }}</strong>
+                                    </p>
+                                    
+                                    <p class="card-text">Tent: {% if camp.tent is not None %} {{ camp.tent.size }} Person {% else %} No tent purchased {% endif %}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if loop.first %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        
+        <div class="col-sm-3">
+            <div class="card w-75">
+                <div class="card-header purple-gradient-reverse d-flex justify-content-center"><i class="fas fa-user-circle align-self-center profile-icon text-white"></i></div> 
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.first_name }}<br> {{ user.last_name }}</h5>
+                    <div class="card-text">{{ user.email }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+<script src="{% static 'js/profileTabsController.js' %}"></script>
+<script src="{% static 'js/ticketResend.js' %}"></script>
+{% endblock %}

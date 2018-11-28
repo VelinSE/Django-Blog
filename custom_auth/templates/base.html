@@ -1,0 +1,151 @@
+<html>
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MASCARADA</title>
+
+    {% load static %}
+    
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
+
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">-->
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+    
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/materialize.css' %}" type="text/css">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    
+</head>
+    <body>
+            {% comment %} {% block header %}
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar" id="main-nav">
+            {% endblock %}
+                        <!-- Navbar logo -->
+                        <logo class="pr-4 pl-4"><a class="navbar-brand p-0 mr-auto" href="{% url 'index' %}">MASCARADA</a></logo>
+            
+                        <!-- Collapse button -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+            
+                        <!-- Collapsible content -->
+                        <div class="collapse navbar-collapse pr-2" id="navCollapsed">
+            
+                            <!-- Links -->
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item mr-3">
+                                    <a class="nav-link waves-effect" href="{% url 'index' %}">HOME</a>
+                                </li>
+                                <li class="nav-item mr-3">
+                                    <a class="nav-link waves-effect" href="{% url 'tickets' %}">TICKETS</a>
+                                </li>
+                                <li class="nav-item mr-3">
+                            
+                                    <a class="nav-link waves-effect" href="{% url 'camping' %}">CAMPING</a>
+                                </li>
+                                <li class="nav-item mr-3">
+                            
+                                    <a class="nav-link waves-effect" href="{% url 'lineup' %}">LINE UP</a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav ml-auto">
+                                {% if not request.user.is_authenticated %}
+                                    <li class="nav-item waves-effect">
+                                        <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+                                    </li>
+                                {% endif %}
+                                {% if request.user.is_authenticated %}
+                                    <!--<li class="nav-item ml-auto waves-effect">
+                                        <a href="#" class="nav-link"><i class="fas fa-user-circle"></i> My profile</a>
+                                    </li>-->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-user-circle"></i> My profile
+                                        </a>
+                                        <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item waves-effect" href="{% url 'profile' %}">Profile</a>
+                                            <a class="dropdown-item waves-effect" href="{% url 'logout' %}">Log out</a>
+                                        </div>
+                                    </li>
+                                {% endif%}
+                            </ul>
+                            <!-- Links -->
+                        </div>
+                        <!-- Collapsible content -->
+                </nav>
+            </header> {% endcomment %}
+        {% block body %}
+        {% endblock %}
+        <footer class="footer d-flex flex-column justify-content-end">
+            <div class="row links">
+                <div class="col-sm-6 d-flex  justify-content-around">
+                    <a href="tickets.html">Buy tickets</a>
+                </div>
+                <div class="col-sm-6 ">
+                    <ul class="social-icons d-flex justify-content-center">
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-facebook-square"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-twitter-square"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-google-plus"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-end mt-2">
+                <p class="copyright">
+                    Copyright &copy; 2018 by UDown and MusicVite. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+    <script src="{% static 'js/stickynav.js' %}"></script>
+</body>
+
+</html>

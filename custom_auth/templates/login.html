@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark deep-purple darken-1 fixed-top scrolling-navbar" id="main-nav">
+{% endblock %}
+
+
+{% block body %}
+<section class="form-elegant main-section">
+
+    <!--Form without header-->
+    <div class="row-ml-5 mt-5">
+        <div class="col-sm-6 login">
+            <div class=" row">
+                <div class="col-sm-6">
+                    <div class="card-body d-flex flex-column">
+                            <!--Header-->
+                            <div class="text-right">
+                                <h3 class="dark-grey-text mb-5">
+                                    <strong class="iceland-font">Sign in</strong>
+                                </h3>
+                            </div>
+        
+                            <!--Body-->
+                            <form method="post" class="">
+                                {% csrf_token %}
+                               
+                                {% for field in form %}
+                                    <div class='md-form'>
+                                        {{ field }}
+                                        {% if field.value is none %}
+                                            <label for="{{ field.id_for_label }}"> {{ field.label }} </label>
+                                        {% else %}
+                                        <label for="{{ field.id_for_label }}" class="active"> {{ field.label }} </label>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                                
+                        
+                                <p class="font-small blue-text d-flex justify-content-end">
+                                    <a href="{% url 'reset_password' %}" class="blue-text ml-1">Forgot Password?</a>
+                                </p>
+        
+                            <div class="text-center mb-3">
+                                <button type="submit" class="btn indigo darken-2 btn-rounded z-depth-1a">Sign in</button>
+                            </div>
+                            </form>
+                    </div>
+                </div>
+                <div class="col-sm-6 border-left d-flex">
+                        <div class="p-4 mb-1 d-flex flex-column h-75 align-self-center">
+                                <span class="grey-text font-weight-bold">No account yet?</span>
+                                <a href="{% url 'register' %}" class="btn btn-amber btn-lg my-auto">Register here</a>
+                            </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="{% static 'js/formController.js' %}"></script>
+</section>
+{% endblock %}

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'custom_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,6 +85,9 @@ DATABASES = {
     }
 }
 
+
+AUTH_USER_MODEL = 'custom_auth.CustomUser'
+BASE_AUTH_USER = 'custom_auth.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
