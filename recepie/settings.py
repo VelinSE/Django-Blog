@@ -75,11 +75,12 @@ WSGI_APPLICATION = 'recepie.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydatabase',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'zefsogjg',
+        'USER': 'zefsogjg',
+        'PASSWORD': 'NClwmehH11DQEs3UbD2rjPtaoHduqR5r',
+        'HOST': 'dumbo.db.elephantsql.com',
+        'PORT': '5432'
     }
 }
 
