@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'custom_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +54,9 @@ ROOT_URLCONF = 'recepie.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, "recepie/templates")
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,8 +87,10 @@ DATABASES = {
 }
 
 
-AUTH_USER_MODEL = 'custom_auth.CustomUser'
-BASE_AUTH_USER = 'custom_auth.CustomUser'
+#AUTH_USER_MODEL = 'custom_auth.CustomUser'
+#BASE_AUTH_USER = 'custom_auth.CustomUser'
+LOGIN_REDIRECT_URL = 'Home'
+LOGIN_URL = 'Login'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

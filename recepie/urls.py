@@ -16,9 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.contrib.auth.views import LoginView, LogoutView 
+from django.views.generic import TemplateView
+
+from recepie.views import signup, profile
 
 urlpatterns = [
-    url(r'^accounts/', include('custom_auth.urls')),
+    url(r'^login$', LoginView.as_view(),  {'template_name': 'templates/login.html'}, name="Login"),
+    url(r'^logout$', LogoutView.as_view(), name="Logout"),
+    url(r'^signup$', signup, name="Signup"),
+    url(r'^profile$', profile,name="Profile"),
+    url(r'^home$', TemplateView.as_view(template_name="home.html"), name="Home"),
     path('admin/', admin.site.urls),
 
 ]
