@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>{{post.title}}</h1>
+    <h3>{{post.content}}</h3>
+    <img src="{{ post.image.url }}" alt="img">
+
+    <form method="post" action="/blog/post/delete/">
+        {% csrf_token %}
+        <input type="hidden" id="postId " name="post_id" value="{{ post.id }}">
+        <button type="submit">Delete Post</button>
+    </form>
+{% endblock body %}
