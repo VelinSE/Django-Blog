@@ -7,13 +7,7 @@
     <h2>Login</h2>
       <form method="post">
       {% csrf_token %}
-          {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.html_name }}">{{ field.label }}</label>
-                <input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" value="{{ field.value }}" type="text" /> 
-                {{ field.errors }}
-            </div>
-          {% endfor %}
+        {{form.as_p}}  
         <button class="btn btn-primary" type="submit">Login</button>
       </form>
   </div>

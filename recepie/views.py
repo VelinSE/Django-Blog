@@ -21,9 +21,19 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form' : form, "user": request.user})
 
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('profile')
+    else:
+        return redirect('login')
+
 @login_required
 def profile(request):
     if request.user.is_authenticated:
         return render(request, 'profile.html', { "user" : request.user})
     else:
-        return redirect('login')
+        return redirect('Login')
