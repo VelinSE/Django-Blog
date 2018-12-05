@@ -1,7 +1,45 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block body %}
-    {% for post in posts %}
-        <a href="/blog/post/{{post.id}}">{{post.title}}</a>
-    {% endfor %}
+    <!-- Hero section -->
+    <section class="page-top-section set-bg" data-setbg="{% static 'res/img/page-top-bg.jpg' %}">
+        <div class="container">
+            <h2>Recipe</h2>
+        </div>
+    </section>
+	<!-- Hero section end -->
+    <section class="recipes-page spad">
+        <div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="section-title">
+						<h2>Latest recipes</h2>
+					</div>
+				</div>
+			</div>
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-lg-4 col-md-6">
+                        <a href="{% url 'DisplayPost' post.id %}">
+                            <div class="recipe">
+                                <img src="{% static 'res/img/recipes/1.jpg' %}" alt="">
+                                <div class="recipe-info-warp">
+                                    <div class="recipe-info">
+                                        <h3>{{ post.title }}</h3>
+                                        <div class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star is-fade"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
 {% endblock body %}

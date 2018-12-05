@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from recepie.forms import SignUpForm
 
 def signup(request):
-    if request.user.is_auhenticated:
+    if request.user.is_authenticated:
         return redirect('profile')
 
     if request.method == 'POST':
@@ -19,7 +19,7 @@ def signup(request):
             redirect('profile')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form' : form})
+    return render(request, 'signup.html', {'form' : form, "user": request.user})
 
 @login_required
 def profile(request):

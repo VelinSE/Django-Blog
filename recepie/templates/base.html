@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MASCARADA</title>
+    <title>Recipe</title>
 
     {% load static %}
     
@@ -39,54 +39,85 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/materialize.css' %}" type="text/css">
-    
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'res/css/style.css' %}" type="text/css">
+
+    <link rel="stylesheet" href="{% static 'res/css/animate.css' %}" type="text/css">
+
+    <link rel="stylesheet" href="{% static 'res/css/owl.carousel.css' %}" type="text/css">
+
     
 </head>
     <body>
-        {% block body %}
-        {% endblock %}
-        <footer class="footer d-flex flex-column justify-content-end">
-            <div class="row links">
-                <div class="col-sm-6 d-flex  justify-content-around">
-                    <a href="tickets.html">Buy tickets</a>
+        <header class="header-section">
+            <div class="header-top">
+                <div class="container">
+                    <!--<div class="header-social">
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-dribbble"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>-->
+                    <div class="user-panel">
+                        <a href="{% url 'Signup' %}">Register</a> / 
+                        <a href="{% url 'Login' %}">Login</a>
+                    </div>
                 </div>
-                <div class="col-sm-6 ">
-                    <ul class="social-icons d-flex justify-content-center">
-                        <li>
-                            <a href="#">
-                                <i class="fab fa-facebook-square"></i>
-                            </a>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                <a class="navbar-brand ml-auto" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse container align-items-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-flex mr-3">
+                            <a class="nav-link align-self-center" href="{% url 'Home' %}">Home</a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="fab fa-twitter-square"></i>
-                            </a>
+                        <li class="nav-item d-flex mr-3">
+                            <a class="nav-link align-self-center" href="{% url 'DisplayPosts' %}">Recipes</a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="fab fa-google-plus"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                        </li>
+                        <form class="form-inline my-lg-0 d-flex align-items-center mr-3">
+                            <div class="header-search d-flex">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <a href="#"><i class="fa fa-search"></i></a>
+                            </div>
+                        </form>
                     </ul>
                 </div>
-            </div>
-            <div class="row justify-content-center align-items-end mt-2">
-                <p class="copyright">
-                    Copyright &copy; 2018 by UDown and MusicVite. All rights reserved.
-                </p>
-            </div>
-        </footer>
+            </nav>
+               <!-- <div class="container">
+                    <a href="index.html" class="site-logo">
+                        <img src="img/logo.png" alt="">
+                    </a>
+                    <div class="nav-switch">
+                        <i class="fa fa-bars"></i>
+                    </div>
+                    <div class="header-search">
+                        <a href="#"><i class="fa fa-search"></i></a>
+                    </div>
+                    <ul class="main-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">Features</a></li>
+                        <li><a href="recipes.html">Receipies</a></li>
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>-->
+        </header>
+        {% block body %}
+        {% endblock %}
+        
 
     <script src="{% static 'js/stickynav.js' %}"></script>
+    <script src="{% static 'res/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'res/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'res/js/main.js' %}"></script>
 </body>
 
 </html>
