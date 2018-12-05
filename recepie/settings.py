@@ -90,9 +90,9 @@ DATABASES = {
 
 #AUTH_USER_MODEL = 'custom_auth.CustomUser'
 #BASE_AUTH_USER = 'custom_auth.CustomUser'
-LOGIN_REDIRECT_URL = 'Home'
+LOGIN_REDIRECT_URL = 'Profile'
 LOGIN_URL = 'Login'
-
+LOGOUT_REDIRECT_URL = 'Home'
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 

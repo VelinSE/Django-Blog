@@ -4,4 +4,6 @@
 
 {% block body %}
     Welcome {{user.first_name}}
+    <a href="{% url 'CreatePost' %}" class="btn btn-success">Write</a>
+    <a href="{% url 'Logout' %}" class="btn btn-danger">Logout</a>
 {% endblock body %}

@@ -24,11 +24,11 @@ from recepie.views import signup, profile
 from recepie.forms import LoginForm
 
 urlpatterns = [
-    url(r'^login$', LoginView.as_view(authentication_form=LoginForm), name="Login"),
+    url(r'^login$', LoginView.as_view(authentication_form=LoginForm, redirect_authenticated_user=True), name="Login"),
     url(r'^logout$', LogoutView.as_view(), name="Logout"),
     url(r'^signup$', signup, name="Signup"),
     url(r'^profile$', profile ,name="Profile"),
-    url(r'^home$', TemplateView.as_view(template_name="home.html"), name="Home"),
+    url(r'^$', TemplateView.as_view(template_name="home.html"), name="Home"),
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

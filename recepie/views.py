@@ -6,7 +6,7 @@ from recepie.forms import SignUpForm
 
 def signup(request):
     if request.user.is_authenticated:
-        return redirect('profile')
+        return redirect('Profile')
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -16,20 +16,10 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            redirect('profile')
+            redirect('Profile')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form' : form, "user": request.user})
-
-def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect('profile')
-    else:
-        return redirect('login')
 
 @login_required
 def profile(request):
