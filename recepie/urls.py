@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from recepie.views import signup, profile
 
 urlpatterns = [
-    url(r'^login$', LoginView.as_view(), name="Login"),
+    url(r'^login$', LoginView.as_view(template_name="registration/login.html"), name="Login"),
     url(r'^logout$', LogoutView.as_view(), name="Logout"),
     url(r'^signup$', signup, name="Signup"),
     url(r'^profile$', profile,name="Profile"),
