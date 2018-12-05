@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from blog.forms import BlogCreationForm
+from blog.forms import BlogCreationForm, PostUpdateForm
 from blog.models import Post
 # Create your views here.
 
@@ -19,14 +19,13 @@ def create(request):
     
 
 def display_post(request, post_id):
-    post = Post.objects.get(pk=post_id)
+    post = get_object_or_404(Post, id=post_id)
     return render(request, "PostDetails.html", { "post" : post })
 
 @login_required
 def delete_post(request):
     post = Post.objects.get(pk=request.POST['post_id'])
 
-    import pdb; pdb.set_trace()
     if post.user == request.user:
         post.delete()
 
@@ -35,3 +34,16 @@ def delete_post(request):
 def display_all_posts(request):
     posts = Post.objects.all()
     return render(request, "DisplayAllPosts.html", { "posts" : posts})
+
+@login_required
+def update_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == "POST":
+        form = PostUpdateForm(request.POST, request.FILES, instance=post) 
+        import pdb; pdb.set_trace()
+        if form.is_valid():
+            post = form.save()
+            return redirect("/blog/post/" + str(post.id))        
+    else:
+        form = PostUpdateForm(instance=post)
+    return render(request, "UpdatePost.html", { "form" : form })
