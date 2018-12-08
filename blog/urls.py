@@ -6,6 +6,6 @@ urlpatterns = [
     url(r'^posts/create/$', create, name="CreatePost"),
     url(r'^posts/$', display_all_posts, name="DisplayPosts"),
     url(r'^post/delete/$', delete_post, name="DeletePost"),
-    url(r'^post/(?P<post_id>[1-9]+)/$', display_post, name="DisplayPost"),
-    url(r'^post/(?P<post_id>[1-9]+)/update/$', update_post, name="DisplayPost")
+    url(r'^post/(?P<post_id>\d+)/$', display_post, name="DisplayPost"),
+    url(r'^post/(?P<post_id>\d+)/update/$', update_post, name="DisplayPost")
 ]

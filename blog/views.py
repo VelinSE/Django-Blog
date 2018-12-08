@@ -40,8 +40,8 @@ def update_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.method == "POST":
         form = PostUpdateForm(request.POST, request.FILES, instance=post) 
-        ##import pdb; pdb.set_trace()
         if form.is_valid():
+            form.Update()
             post = form.save()
             return redirect("/blog/post/" + str(post.id))        
     else:
