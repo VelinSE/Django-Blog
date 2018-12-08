@@ -19,3 +19,4 @@ tests/report/
 ENV/
 ENV/*
 storage/
+.vscode/
