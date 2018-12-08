@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <div class="recipe-view-section">
-		<div class="rv-warp set-bg" data-setbg="{{  }}"></div>
-	</div>
+    <!--<div class="recipe-view-section">
+		<div class="rv-warp set-bg" data-setbg="{{ post.img.url }}"></div>
+	</div>-->
 
     <section class="recipe-details-section">
 		<div class="container">
@@ -26,15 +26,16 @@
 					<div class="recipe-filter-warp">
 						<div class="filter-top">
 							<div class="filter-top-text">
-								<p>Prep: 15 mins</p>
-								<p>Cook: 30 mins</p>
-								<p>Yields: 8 Servings</p>
+								<p>Prep: ~ mins</p>
+								<p>Cook: ~ mins</p>
+								<p>Yields: ~ Servings</p>
 							</div>
 						</div>
 						<!-- recipe filter form -->
-						<!--<div class="filter-form-warp">
+						<div class="filter-form-warp">
 							<h2>Ingredients</h2>
-							<form class="filter-form">
+							*some ingredients here*
+							<!--<form class="filter-form">
 								<div class="check-warp">
 									<input type="checkbox" id="one">
 									<label for="one">4 Tbsp (57 gr) butter</label>
@@ -72,6 +73,12 @@
 					</div>
 				</div>
 				<div class="col-lg-7">
+					<ul class="recipe-info-list">
+						<li>
+							<h2>01.</h2>
+							<p>{{post.content}}</p>
+						</li>
+					</ul>
 					<!--<ul class="recipe-info-list">
 						<li>
 							<h2>01.</h2>
@@ -94,7 +101,7 @@
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magni.</p>
 						</li>
 					</ul>-->
-                    {{post.content}}
+                    
 				</div>
 			</div>
 		</div>
