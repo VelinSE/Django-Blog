@@ -1,6 +1,10 @@
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.views.static import serve
+from django.http.response import HttpResponseForbidden
+
+from blog.models import Post
 
 from recepie.forms import SignUpForm
 
@@ -27,3 +31,14 @@ def profile(request):
         return render(request, 'profile.html', { "user" : request.user})
     else:
         return redirect('Login')
+
+
+def protected_serve(request, path, document_root = None, show_indexes = False):
+    home_dir, filename = path.split("/")
+    if home_dir == "blog_image":
+        if request.user.is_authenticated:
+            if Post.objects.filter(user=request.user).filter(image=path).count() > 0:
+                return serve(request, path, document_root, show_indexes)
+        return HttpResponseForbidden()
+
+    return serve(request, path, document_root, show_indexes)

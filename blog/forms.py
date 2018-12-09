@@ -50,7 +50,6 @@ class PostUpdateForm(ModelForm):
 
     def Update(self):
         image = self.files['image']
-        import pdb; pdb.set_trace()
         name = 'thumbnail-' + image.name
         self.instance.thumbnail = Post.ResizeImage(image, name, [500, 430])
         self.save()

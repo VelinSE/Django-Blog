@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 
 from blog.forms import BlogCreationForm, PostUpdateForm
 from blog.models import Post
-# Create your views here.
 
 @login_required
 def create(request):
@@ -42,7 +41,6 @@ def update_post(request, post_id):
         form = PostUpdateForm(request.POST, request.FILES, instance=post) 
         if form.is_valid():
             form.Update()
-            post = form.save()
             return redirect("/blog/post/" + str(post.id))        
     else:
         form = PostUpdateForm(instance=post)

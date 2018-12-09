@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from recepie.views import signup, profile
+from recepie.views import signup, profile, protected_serve
 from recepie.forms import LoginForm
 
 urlpatterns = [
@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="home.html"), name="Home"),
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], protected_serve, {'document_root': settings.MEDIA_ROOT})
+] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
