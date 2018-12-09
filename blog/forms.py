@@ -1,10 +1,12 @@
-from blog.models import Post
+from io import BytesIO
+from PIL import Image
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django import forms
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from PIL import Image
-from io import BytesIO
+
+from blog.models import Post
 
 class BlogCreationForm(ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -36,7 +38,7 @@ class BlogCreationForm(ModelForm):
 class PostUpdateForm(ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
-    #   image = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}))
+    #image = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Post
