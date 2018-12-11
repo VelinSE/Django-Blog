@@ -39,8 +39,6 @@ def display_all_posts(request):
     return render(request, "DisplayAllPosts.html", { "posts" : posts})
 
 def print_post(request, post_id):
-    import pdb; pdb.set_trace()
-
     html = HTML(request.META['HTTP_REFERER'])
     
     html.write_pdf('storage/media/test.pdf')
