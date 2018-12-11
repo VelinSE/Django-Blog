@@ -13,6 +13,11 @@ class Post(models.Model):
     image = models.FileField(upload_to="blog_image")
     thumbnail = models.FileField(upload_to="blog_thumbnails", null=True, blank=True)
 
+    class Meta:
+        permissions = (
+            ("view_original_img", "Can view the original image of a blog post"),
+        )
+
     def ResizeImage(imageInput, name,  size):
         plw_image = Image.open(imageInput)
         resized_image = plw_image.resize(size)
