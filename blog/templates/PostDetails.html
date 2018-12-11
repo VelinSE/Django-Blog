@@ -106,6 +106,8 @@
 			</div>
 		</div>
 	</section>
+	<a href="{% url 'UpdatePost' post.id %}" class="btn btn-success">Edit</a>
+	<a href="{% url 'PrintPost' post.id %}" class="btn btn-primary">Print</a>
 
     <form method="post" action="{% url 'DeletePost' %}">
         {% csrf_token %}

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'PIL',
     'blog',
+    'weasyprint',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
