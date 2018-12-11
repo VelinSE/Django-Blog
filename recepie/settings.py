@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'PIL',
-    'blog',
     'weasyprint',
     'xlsxwriter',
     'django.contrib.admin',
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -91,8 +91,15 @@ DATABASES = {
 }
 
 
-#AUTH_USER_MODEL = 'custom_auth.CustomUser'
-#BASE_AUTH_USER = 'custom_auth.CustomUser'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'mascarada.event@gmail.com'
+EMAIL_HOST_PASSWORD = 'mascarada1'
+
+
 LOGIN_REDIRECT_URL = 'Profile'
 LOGIN_URL = 'Login'
 LOGOUT_REDIRECT_URL = 'Home'

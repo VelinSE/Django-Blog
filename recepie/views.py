@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.static import serve
@@ -35,14 +35,10 @@ def profile(request):
     else:
         return redirect('Login')
 
-
 def protected_serve(request, path, document_root = None, show_indexes = False):
     home_dir, filename = path.split("/")
     if home_dir == "blog_image":
         if request.user.is_authenticated:
-            if request.user.is_superuser:
-                return serve(request, path, document_root, show_indexes)
-                
             if request.user.has_perm('blog.view_original_img'):
                 return serve(request, path, document_root, show_indexes)
 
@@ -52,6 +48,8 @@ def protected_serve(request, path, document_root = None, show_indexes = False):
 
     return serve(request, path, document_root, show_indexes)
 
+@login_required
+@permission_required('blog.run_exports')
 def export_excel(request):
     workbook = xlsxwriter.Workbook('storage/media/excel/test.xlsx', {'remove_timezone': True, 'default_date_format': 'dd/mm/yy'})
     worksheet = workbook.add_worksheet()
