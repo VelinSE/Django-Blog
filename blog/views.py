@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.http import HttpRequest
 
 from blog.forms import BlogCreationForm, PostUpdateForm
 from blog.models import Post
+
+from weasyprint import HTML
 
 @login_required
 def create(request):
@@ -33,6 +37,16 @@ def delete_post(request):
 def display_all_posts(request):
     posts = Post.objects.all()
     return render(request, "DisplayAllPosts.html", { "posts" : posts})
+
+def print_post(request, post_id):
+    import pdb; pdb.set_trace()
+
+    html = HTML(request.META['HTTP_REFERER'])
+    
+    html.write_pdf('storage/media/test.pdf')
+    
+
+    return redirect("/blog/post/" + str(post_id))
 
 @login_required
 def update_post(request, post_id):
