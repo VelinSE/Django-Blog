@@ -40,6 +40,12 @@ def protected_serve(request, path, document_root = None, show_indexes = False):
     home_dir, filename = path.split("/")
     if home_dir == "blog_image":
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                return serve(request, path, document_root, show_indexes)
+                
+            if request.user.has_perm('blog.view_original_img'):
+                return serve(request, path, document_root, show_indexes)
+
             if Post.objects.filter(user=request.user).filter(image=path).count() > 0:
                 return serve(request, path, document_root, show_indexes)
         return HttpResponseForbidden()
