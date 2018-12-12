@@ -16,6 +16,8 @@ class Post(models.Model):
     class Meta:
         permissions = (
             ("view_original_img", "Can view the original image of a blog post"),
+            ("run_seeds", "Can sun seed methods against the database"),
+            ("run_exports", "Can run user and blog exports")
         )
 
     def ResizeImage(imageInput, name,  size):

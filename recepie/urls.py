@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-from django.contrib.auth.views import LoginView, LogoutView 
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -23,9 +23,15 @@ from django.conf.urls.static import static
 from recepie.views import signup, profile, protected_serve, export_excel
 from recepie.forms import LoginForm
 
+admin.autodiscover()
+
 urlpatterns = [
     url(r'^login$', LoginView.as_view(authentication_form=LoginForm, redirect_authenticated_user=True), name="Login"),
     url(r'^logout$', LogoutView.as_view(), name="Logout"),
+    url(r'^reset-password/$', PasswordResetView.as_view(), name='reset_password'),
+    url(r'^reset-password/done/$', PasswordResetDoneView.as_view(), name='password_reset_done'),
+    url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'^reset-password/complete/$', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     url(r'^signup$', signup, name="Signup"),
     url(r'^profile$', profile ,name="Profile"),
     url(r'^$', TemplateView.as_view(template_name="home.html"), name="Home"),
