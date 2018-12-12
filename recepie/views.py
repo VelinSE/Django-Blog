@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.static import serve
 from django.http.response import HttpResponseForbidden
+from django.http import HttpResponse
+from django.core.files import File
+from io import BytesIO
 
 from blog.models import Post
 
@@ -53,7 +56,8 @@ def protected_serve(request, path, document_root = None, show_indexes = False):
     return serve(request, path, document_root, show_indexes)
 
 def export_excel(request):
-    workbook = xlsxwriter.Workbook('storage/media/excel/test.xlsx', {'remove_timezone': True, 'default_date_format': 'dd/mm/yy'})
+    output = BytesIO()
+    workbook = xlsxwriter.Workbook(output, {'remove_timezone': True, 'default_date_format': 'dd/mm/yy'})
     worksheet = workbook.add_worksheet()
     
     users = User.objects.all()
@@ -78,5 +82,10 @@ def export_excel(request):
         i += 1
 
     workbook.close()
+    output.seek(0)
 
-    return redirect('Profile')
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=test.xlsx'
+    response.write(output.read())
+
+    return response
