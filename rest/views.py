@@ -12,19 +12,28 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import permissions
+from rest_framework.reverse import reverse
 
 
 from rest.serializers import PostSerializer, UserSerializer
 from rest.permissions import IsOwnerOrReadOnly
 from blog.models import Post
 
-# Create your views here.
-# class UserViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows users to be viewed or edited.
-#     """
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
+#Create your views here.
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 # def UsersView(request):
 #     if request.method == 'GET':
@@ -176,28 +185,35 @@ from blog.models import Post
 #     END      #
   ############
 
-class PostsList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('Users', request=request, format=format),
+        'posts': reverse('Posts', request=request, format=format)
+    })
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+# class PostsList(generics.ListCreateAPIView):
+#     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
 
-class PostDetails(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
 
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+# class PostDetails(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
 
-class UsersList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
 
-class UserDetails(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UsersList(generics.ListAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+
+# class UserDetails(generics.RetrieveAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
 
 
