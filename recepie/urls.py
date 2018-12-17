@@ -38,5 +38,6 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], protected_serve, {'document_root': settings.MEDIA_ROOT}),
-    url(r'^export_users', export_excel, name="ExportExcel")
+    url(r'^export_users', export_excel, name="ExportExcel"),
+    url(r'^api/', include('rest.urls'))
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
