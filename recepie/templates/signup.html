@@ -5,9 +5,10 @@
 {% block body %}
   <div class="container">
   <h2>Signup</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
+      {{ extended_user_form.as_p }}
       <button class="btn btn-primary" type="submit">Signup</button>
     </form>
   </div>

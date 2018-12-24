@@ -6,13 +6,14 @@ from django.views.static import serve
 from django.http.response import HttpResponseForbidden
 from django.http import HttpResponse
 from django.core.files import File
-from io import BytesIO
+from django.db import transaction
 
 from blog.models import Post
 
-from recepie.forms import SignUpForm
+from recepie.forms import SignUpForm, UserExtendedCreationForm, UserUpdateForm, UserExtendedUpdateForm
 
 import xlsxwriter
+from io import BytesIO
 
 def signup(request):
     if request.user.is_authenticated:
@@ -20,16 +21,20 @@ def signup(request):
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
+        extended_user_form = UserExtendedCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            if  extended_user_form.is_valid():
+                extended_user_form.save(user)
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            redirect('Profile')
+            return redirect('Profile')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form' : form, "user": request.user})
+        extended_user_form = UserExtendedCreationForm()
+    return render(request, 'signup.html', {'form' : form, 'extended_user_form' : extended_user_form, "user": request.user})
 
 @login_required
 def profile(request):
@@ -37,6 +42,24 @@ def profile(request):
         return render(request, 'profile.html', { "user" : request.user})
     else:
         return redirect('Login')
+
+@login_required
+@transaction.atomic
+def update_profile(request):
+    if request.method == "POST":
+        user_form = UserUpdateForm(request.POST, instance = request.user)
+        extended_user_form = UserExtendedUpdateForm(request.POST, files=request.FILES, instance=request.user.userextended)
+        if user_form.is_valid() and extended_user_form.is_valid():
+            user_form.save()
+            extended_user_form.save()
+            return redirect('Profile')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        extended_user_form = UserExtendedUpdateForm(instance=request.user.userextended) 
+    return render(request, 'update_profile.html', {
+        'user_form' : user_form,
+        'extended_user_form' : extended_user_form
+    })
 
 def protected_serve(request, path, document_root = None, show_indexes = False):
     home_dir, filename = path.split("/")

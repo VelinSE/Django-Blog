@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from recepie.views import signup, profile, protected_serve, export_excel
+from recepie.views import signup, profile, protected_serve, export_excel, update_profile
 from recepie.forms import LoginForm
 
 admin.autodiscover()
@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^reset-password/complete/$', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     url(r'^signup$', signup, name="Signup"),
     url(r'^profile$', profile ,name="Profile"),
+    url(r'^profile/update$', update_profile, name="ProfileUpdate"),
     url(r'^$', TemplateView.as_view(template_name="home.html"), name="Home"),
     url(r'^blog/', include('blog.urls')),
     url(r'^admin/', admin.site.urls),
