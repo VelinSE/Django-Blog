@@ -10,7 +10,7 @@ from django.db import transaction
 
 from blog.models import Post
 
-from recepie.forms import SignUpForm, UserExtendedCreationForm, UserUpdateForm, UserExtendedUpdateForm
+from recepie.forms import SignUpForm, UserExtendedCreationForm, UserUpdateForm, UserExtendedUpdateForm, UserChangePasswordForm
 
 import xlsxwriter
 from io import BytesIO
@@ -42,6 +42,18 @@ def profile(request):
         return render(request, 'profile.html', { "user" : request.user})
     else:
         return redirect('Login')
+
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        form = UserChangePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('Profile')
+    else: 
+        form = UserChangePasswordForm(request.user)
+    return render(request, 'change_password.html', { 'form' : form })
 
 @login_required
 @transaction.atomic

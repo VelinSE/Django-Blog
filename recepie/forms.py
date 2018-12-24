@@ -41,3 +41,46 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
+
+class UserChangePasswordForm(forms.Form):
+    old_password = forms.CharField(
+        label=("Old password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autofocus': True}),
+    )
+
+    new_password1 = forms.CharField(
+        label=("New password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={}),
+    )
+
+    new_password2 = forms.CharField(
+        label=("Confirm password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={}),
+    )
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password2', 'new_password2')
+
+    def is_valid(self):
+        if self.data['new_password1'] != self.data['new_password2']:
+            return False
+        
+        old_pass = self.data['old_password'] 
+        if not self.user.check_password(old_pass):
+            return False
+
+        return super(UserChangePasswordForm, self).is_valid()
+
+    def save(self):
+        if self.is_valid():
+            self.user.set_password(self.cleaned_data['new_password1'])
+            self.user.save()
+            return self.user
