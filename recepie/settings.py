@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'PIL',
     'weasyprint',
     'xlsxwriter',
+    'ckeditor',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -141,6 +142,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = '/recepie/static/'
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'storage/media')
@@ -153,4 +155,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+CKEDITOR_BASEPATH = "/static/blog/ckeditor/ckeditor/"
 

@@ -14,7 +14,9 @@
     <div>
         <a href="{% url 'CreatePost' %}" class="btn btn-success">Write</a>
         <a href="{% url 'Logout' %}" class="btn btn-danger">Logout</a>
-        <a href="{% url 'ExportExcel' %}" class="btn btn-primary">Export</a>
+        {% if perms.blog.run_exports %}
+            <a href="{% url 'ExportExcel' %}" class="btn btn-primary">Export</a>
+        {% endif %}
     </div>
 </div>
 {% endblock body %}
