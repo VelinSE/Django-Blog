@@ -30,3 +30,10 @@ class Post(models.Model):
         mimeType = Image.MIME[plw_image.format]
         
         return InMemoryUploadedFile(image_io, None, name, mimeType, resized_image.size, None)
+
+
+class Ingredient(models.Model):
+    recepie = models.ForeignKey(Post, on_delete=models.CASCADE)
+    name = models.CharField(max_length=60)
+    metric = models.CharField(max_length=40)
+    quantity = models.IntegerField()
