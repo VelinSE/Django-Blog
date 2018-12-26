@@ -3,12 +3,61 @@
 {% block body %}
     <div class="container">
         <h2>Create Post</h2>
-        <form method="post" enctype="multipart/form-data">
+        <form class="needs-validatio" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
-            {{ form.media }}
-            {{ form.as_p }}
+            {{ form_blog.media }}
+            <div class="form-group mb-2">
+                {{ form_blog.title.label_tag }}
+                {{ form_blog.title }}
+            </div>
+            
+            <div id="ingredients" class="form-group my-5">
+                <div class="form-row">
+                    <label class="border-bottom">Ingredient: </label>
+                    <a id="add_ingredient" class="mx-auto p-1" href="#"><span class="add-ingredient">Add +</span></a>
+                </div>
+                {{ form_ingredient.management_form }}
+                {% for form in form_ingredient %}
+                    <div id="ingredient" class="form-row">
+                        {{ form.id }}
+                        <div class="col-md-1 mr-1">
+                            {{ form.quantity.label_tag }}
+                            {{ form.quantity }}
+                            {{ form.quantity.errors_messages }}
+                        </div>
+                        <div class="col-md-2 mr-1">
+                            {{ form.metric.label_tag }}
+                            {{ form.metric }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-group mb-2">
+                {{ form_blog.content.label_tag }}
+                <div>
+                    {{ form_blog.content }}
+                </div>
+                <div class="invalid-feedback">
+                    {{ form_blog.content.errors }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_blog.image.label_tag }}
+                {{ form_blog.image }}
+            </div>
+            
+            
             <button type="submit">Crete Post</button>
         </form>
     </div>
-    
+    <script type="text/javascript">
+           $(function() {
+               $('#ingredient').formset({ addText: 'Add +', addCssClass: 'add-ingredient', removeText: 'Remove', deleteCssClass: 'align-self-end pb-2 pl-2' });
+           })
+    </script>
 {% endblock body %}
