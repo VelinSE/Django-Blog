@@ -34,7 +34,14 @@
 						<!-- recipe filter form -->
 						<div class="filter-form-warp">
 							<h2>Ingredients</h2>
-							*some ingredients here*
+								<form class="filter-form">
+									{% for ingredient in ingredients %}
+										<div class="check-warp">
+											<input type="checkbox" id="one">
+											<label for="one">{{ ingredient.quantity }} {{  ingredient.metric }} {{ ingredient.name }}</label>
+										</div>
+									{% endfor %}
+								</form>
 							<!--<form class="filter-form">
 								<div class="check-warp">
 									<input type="checkbox" id="one">
