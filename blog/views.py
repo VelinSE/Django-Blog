@@ -33,13 +33,13 @@ class PostView(View):
     def get(self, request, *args, **kwargs):
         form_blog = BlogCreationForm()
         form_ingredient = self.IngredientFormset(queryset=Ingredient.objects.none())
-
+        
         return render(request, "CreatePost.html", { "form_blog" : form_blog, "form_ingredient" : form_ingredient })
 
     def post(self, request, *args, **kwargs):
         form_blog = BlogCreationForm(self.request.POST, request.FILES)
         form_ingredient = self.IngredientFormset(self.request.POST, queryset=Ingredient.objects.none())
-        import pdb; pdb.set_trace()
+        
         if form_blog.is_valid() and form_ingredient.is_valid():
             user = request.user
             post = form_blog.save(user)

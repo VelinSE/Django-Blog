@@ -14,13 +14,17 @@ class BlogCreationForm(ModelForm):
     content = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     image = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}))
-    
+    cooking_time = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    servings = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Post
         fields = (
             'title',
             'image',
-            'content'
+            'content',
+            'cooking_time',
+            'servings',
         )
 
     def save(self, user, commit = True):
@@ -63,17 +67,23 @@ class PostUpdateForm(ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     content = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control'}))
     #image = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}))
+    cooking_time = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    servings = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Post
         fields = (
             'title',
+            'cooking_time',
+            'servings',
             'content',
-            'image'
+            'image',
         )
 
     def Update(self):
-        image = self.files['image']
-        name = 'thumbnail-' + image.name
-        self.instance.thumbnail = Post.ResizeImage(image, name, [500, 430])
+        if bool(self.files):
+            image = self.files['image']
+            name = 'thumbnail-' + image.name
+            self.instance.thumbnail = Post.ResizeImage(image, name, [500, 430])
+            
         self.save()
