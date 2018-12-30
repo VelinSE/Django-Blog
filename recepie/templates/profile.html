@@ -6,7 +6,9 @@
 <div class="container">
     <h2>{{user.username}}</h2>
     <h3>Welcome {{user.first_name}} {{user.last_name}}</h3>
-    <img src="{{ user.userextended.profile_image.url }}" alt="">
+    {% if user.userextended.profile_image %}
+        <img src="{{ user.userextended.profile_image.url }}" alt="">
+    {% endif %}
     <div>
         <a href="{% url 'ProfileUpdate' %}">Edit Profile</a>
         <a href="{% url 'PasswordChange' %}">Change password</a>
