@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'storage/cache'),
+    }
+}
+
 
 # Application definition
 
@@ -158,9 +165,3 @@ REST_FRAMEWORK = {
 
 CKEDITOR_BASEPATH = "/static/blog/ckeditor/ckeditor/"
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'storage/cache'),
-    }
-}
