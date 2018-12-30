@@ -8,6 +8,8 @@ from io import BytesIO
 # Create your models here.
 class Post(models.Model):
     user =  models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
+    cooking_time = models.IntegerField()
+    servings = models.IntegerField()
     title = models.CharField(max_length=255)
     content = models.TextField()
     image = models.FileField(upload_to="blog_image")

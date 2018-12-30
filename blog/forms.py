@@ -14,13 +14,17 @@ class BlogCreationForm(ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     content = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     image = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}))
-    
+    cooking_time = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    servings = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Post
         fields = (
             'title',
             'image',
-            'content'
+            'content',
+            'cooking_time',
+            'servings',
         )
 
     def save(self, user, commit=True):
@@ -36,25 +40,6 @@ class BlogCreationForm(ModelForm):
             post.save()
 
         return post
-
-class PostUpdateForm(ModelForm):
-    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    content = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control'}))
-    #image = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}))
-
-    class Meta:
-        model = Post
-        fields = (
-            'title',
-            'content',
-            'image'
-        )
-
-    def Update(self):
-        image = self.files['image']
-        name = 'thumbnail-' + image.name
-        self.instance.thumbnail = Post.ResizeImage(image, name, [500, 430])
-        self.save()
 
 class IngredientsForm(ModelForm):
     quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}), label='Quantity')
@@ -99,3 +84,27 @@ class RecipeCreateForm(forms.Form):
         return self.form_blog.is_valid() and self.form_ingredient.is_valid()
 #class IngredientsUpdateForm(ModelForm, IngredientsForm):
     
+class PostUpdateForm(ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    content = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control'}))
+    #image = forms.FileField(widget=forms.FileInput(attrs={'class': 'form-control'}))
+    cooking_time = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+    servings = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Post
+        fields = (
+            'title',
+            'cooking_time',
+            'servings',
+            'content',
+            'image',
+        )
+
+    def Update(self):
+        if bool(self.files):
+            image = self.files['image']
+            name = 'thumbnail-' + image.name
+            self.instance.thumbnail = Post.ResizeImage(image, name, [500, 430])
+            
+        self.save()
