@@ -43,7 +43,7 @@ class BlogCreationForm(ModelForm):
 
 class IngredientsForm(ModelForm):
     quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}), label='Quantity')
-    metric = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control', 'required': True}), choices={('Tbsp', 'Tbsp'), ('Tsp', 'Tsp'), ('ml', 'ml')}, label='Units')
+    metric = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control', 'required': True}), choices={('Tbsp', 'Tbsp'), ('Tsp', 'Tsp'), ('ml', 'ml'), ('Gr', 'Gr'), ('Kg', 'Kg')}, label='Units')
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}), label='Name')
 
     class Meta:
@@ -85,5 +85,5 @@ class PostUpdateForm(ModelForm):
             image = self.files['image']
             name = 'thumbnail-' + image.name
             self.instance.thumbnail = Post.ResizeImage(image, name, [500, 430])
-            
+
         self.save()
