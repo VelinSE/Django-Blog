@@ -69,7 +69,7 @@
                     row.append('<a class="' + options.deleteCssClass + '" href="javascript:void(0)">' + options.deleteText +'</a>');
                 }
                 // Check if we're under the minimum number of forms - not to display delete link at rendering
-                if (!showDeleteLinks()){
+                if (!showDeleteLinks() || totalForms <= 0){
                     row.find('a.' + delCssSelector).hide();
                 }
 
@@ -88,9 +88,9 @@
                     } else {
                         row.remove();
                         // Update the TOTAL_FORMS count:
-                        forms = $('.' + options.formCssClass).not('.formset-custom-template');
-                        totalForms.val(forms.length);
+                        forms = $('.' + options.formCssClass).not('.formset-custom-template');   
                     }
+                    totalForms.val(forms.length);
                     for (var i=0, formCount=forms.length; i<formCount; i++) {
                         // Apply `extraClasses` to form rows so they're nicely alternating:
                         applyExtraClasses(forms.eq(i), i);
@@ -157,7 +157,7 @@
                 // Otherwise, use the last form in the formset; this works much better if you've got
                 // extra (>= 1) forms (thnaks to justhamade for pointing this out):
                 template = $('.' + options.formCssClass + ':last').clone(true).removeAttr('id');
-                template.find('input:hidden[id $= "-DELETE"]').remove();
+                // template.find('input:hidden[id $= "-DELETE"]').hide(); //Causes problems when working with formsets using can_delete=True
                 // Clear all cloned fields, except those the user wants to keep (thanks to brunogola for the suggestion):
                 template.find(childElementSelector).not(options.keepFieldValues).each(function() {
                     var elem = $(this);
@@ -173,28 +173,38 @@
             // FIXME: Perhaps using $.data would be a better idea?
             options.formTemplate = template;
 
-            if ($$.is('TR')) {
-                // If forms are laid out as table rows, insert the
-                // "add" button in a new table row:
-                var numCols = $$.eq(0).children().length,   // This is a bit of an assumption :|
-                    buttonRow = $('<tr><td colspan="' + numCols + '"><a class="' + options.addCssClass + '" href="javascript:void(0)">' + options.addText + '</a></tr>')
-                                .addClass(options.formCssClass + '-add');
-                $$.parent().append(buttonRow);
-                if (hideAddButton) buttonRow.hide();
-                addButton = buttonRow.find('a');
+            if(options.addButton == null) {
+                if ($$.is('TR')) {
+                    // If forms are laid out as table rows, insert the
+                    // "add" button in a new table row:
+                    var numCols = $$.eq(0).children().length,   // This is a bit of an assumption :|
+                        buttonRow = $('<tr><td colspan="' + numCols + '"><a class="' + options.addCssClass + '" href="javascript:void(0)">' + options.addText + '</a></tr>')
+                                    .addClass(options.formCssClass + '-add');
+                    $$.parent().append(buttonRow);
+                    if (hideAddButton) buttonRow.hide();
+                    addButton = buttonRow.find('a');
+                } else {
+                    // Otherwise, insert it immediately after the last form:
+                    $$.filter(':last').after('<a class="' + options.addCssClass + '" href="javascript:void(0)">' + options.addText + '</a>');
+                    addButton = $$.filter(':last').next();
+                    if (hideAddButton) addButton.hide();
+                }
             } else {
-                // Otherwise, insert it immediately after the last form:
-                $$.filter(':last').after('<a class="' + options.addCssClass + '" href="javascript:void(0)">' + options.addText + '</a>');
-                addButton = $$.filter(':last').next();
-                if (hideAddButton) addButton.hide();
+                addButton = options.addButton;
             }
+            
             addButton.click(function() {
                 var formCount = parseInt(totalForms.val()),
                     row = options.formTemplate.clone(true).removeClass('formset-custom-template'),
-                    buttonRow = $($(this).parents('tr.' + options.formCssClass + '-add').get(0) || this),
                     delCssSelector = $.trim(options.deleteCssClass).replace(/\s+/g, '.');
+
+                if(options.addButton == null) {
+                    var lastRow = $$.filter(':last').prev();
+                } else {
+                    var lastRow = $$.filter(':last');
+                } 
                 applyExtraClasses(row, formCount);
-                row.insertBefore(buttonRow).show();
+                row.insertAfter(lastRow).show();
                 row.find(childElementSelector).each(function() {
                     updateElementIndex($(this), options.prefix, formCount);
                 });
@@ -226,6 +236,7 @@
         extraClasses: [],                // Additional CSS classes, which will be applied to each form in turn
         keepFieldValues: '',             // jQuery selector for fields whose values should be kept when the form is cloned
         added: null,                     // Function called each time a new form is added
-        removed: null                    // Function called each time a form is deleted
+        removed: null,                   // Function called each time a form is deleted
+        addButton: null                  // JavaScript object representing the "Add" button. Null means default "Add" button is used.
     };
 })(jQuery);
