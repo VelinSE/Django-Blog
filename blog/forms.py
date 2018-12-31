@@ -54,35 +54,54 @@ class IngredientsForm(ModelForm):
             'name'
         )
 
-    def save(self, post, commit=True):
+    def save(self, post=None, delete=False, commit=True):
         ingredient = super(IngredientsForm, self).save(commit=False)
-        ingredient.recepie = post
 
+        if delete:
+            ingredient.delete()
+            return
+
+        ingredient.recepie = post
+        
         if commit:
             ingredient.save()
         
         return ingredient
+    
 
 class RecipeCreateForm(forms.Form):
-    IngredientFormset = modelformset_factory(Ingredient, form=IngredientsForm, min_num=1, extra=0, can_delete=True, validate_min=True)
-
-    def __init__(self, data=None, files=None, *args, **kwargs):
+    def __init__(self, instance=None, data=None, files=None, *args, **kwargs):
         super(RecipeCreateForm, self).__init__(*args, **kwargs)
 
-        self.form_blog = BlogCreationForm(data=data, files=files, prefix="post")
-        self.form_ingredient = self.IngredientFormset(data=data, queryset=Ingredient.objects.none(), prefix='ingredient')
+        formset = modelformset_factory(Ingredient, form=IngredientsForm, min_num=1, extra=0, can_delete=True, validate_min=True)
+
+        self.form_blog = BlogCreationForm(data=data, files=files, prefix='post', instance=instance)
+        self.form_ingredient = formset(data=data, queryset=Ingredient.objects.none(), prefix='ingredient')
     
-    def save(self, user, commit=False):
+    def save(self, user, commit=True):
         post = self.form_blog.save(user)
+        self.form_ingredient.save(commit=False)
+
         for ingredient in self.form_ingredient:
-                #import pdb; pdb.set_trace()
-                ingredient = ingredient.save(post)
+            if ingredient in self.form_ingredient.deleted_forms:
+                if ingredient.instance.pk:
+                    ingredient.save(delete=True)
+                
+            else:
+                ingredient = ingredient.save(post=post)
 
         return post
 
     def is_valid(self):
         return self.form_blog.is_valid() and self.form_ingredient.is_valid()
-#class IngredientsUpdateForm(ModelForm, IngredientsForm):
+
+    
+class RecipeUpdateForm(RecipeCreateForm):
+    def __init__(self, data=None, files=None, instance=None, *args, **kwargs):
+        super(RecipeUpdateForm, self).__init__(data=data, files=files, instance=instance, *args, **kwargs)
+
+        formset = inlineformset_factory(Post, Ingredient, min_num=1, form=IngredientsForm, extra=0, can_delete=True, validate_min=True)
+        self.form_ingredient = formset(data=data, prefix='ingredient', instance=instance)
     
 class PostUpdateForm(ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
