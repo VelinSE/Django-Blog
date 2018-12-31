@@ -25,7 +25,7 @@ SECRET_KEY = 'ghn4j6$ya0(@rt0m%8v^9k@p&#$^dhky+7a*vzk_we73!=y^*_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ledjango.herokuapp.com', 'localhost']
 
 CACHES = {
     'default': {
