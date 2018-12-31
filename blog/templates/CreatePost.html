@@ -5,53 +5,53 @@
         <h2>Create Post</h2>
         <form class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
-            {{ recipe_form.form_blog.media }}
+            {{ form.form_blog.media }}
             <div class="form-group mb-2">
-                {{ recipe_form.form_blog.title.label_tag }}
-                {{ recipe_form.form_blog.title }}
-                {{ recipe_form.form_blog.cooking_time.label_tag }}
-                {{ recipe_form.form_blog.cooking_time }}
-                {{ recipe_form.form_blog.servings.label_tag }}
-                {{ recipe_form.form_blog.servings }}
+                {{ form.form_blog.title.label_tag }}
+                {{ form.form_blog.title }}
+                {{ form.form_blog.cooking_time.label_tag }}
+                {{ form.form_blog.cooking_time }}
+                {{ form.form_blog.servings.label_tag }}
+                {{ form.form_blog.servings }}
             </div>
             <div id="ingredients" class="form-group my-5">
                 <div class="form-row">
                     <label class="border-bottom">Ingredient: </label>
                     <a id="add-ingredient" class="mx-auto p-1" href="#"><span class="add-ingredient">Add +</span></a>
                 </div>
-                {{ recipe_form.form_ingredient.management_form }}
-                {% for form in recipe_form.form_ingredient %}
+                {{ form.form_ingredient.management_form }}
+                {% for inline_form in form.form_ingredient %}
                     <div id="ingredient" class="form-row mb-3">
-                        {{ form.id }}
+                        {{ inline_form.id }}
                         <div class="col-md-1 mr-1">
-                            {{ form.quantity.label_tag }}
-                            {{ form.quantity }}
-                            {{ form.quantity.errors_messages }}
+                            {{ inline_form.quantity.label_tag }}
+                            {{ inline_form.quantity }}
+                            {{ inline_form.quantity.errors_messages }}
                         </div>
                         <div class="col-md-2 mr-1">
-                            {{ form.metric.label_tag }}
-                            {{ form.metric }}
+                            {{ inline_form.metric.label_tag }}
+                            {{ inline_form.metric }}
                         </div>
                         <div class="col-md-4">
-                            {{ form.name.label_tag }}
-                            {{ form.name }}
+                            {{ inline_form.name.label_tag }}
+                            {{ inline_form.name }}
                         </div>
-                        {{ form.DELETE }}
+                        {{ inline_form.DELETE }}
                     </div>
                 {% endfor %}
             </div>
             <div class="form-group mb-2">
-                {{ recipe_form.form_blog.content.label_tag }}
+                {{ form.form_blog.content.label_tag }}
                 <div>
-                    {{ recipe_form.form_blog.content }}
+                    {{ form.form_blog.content }}
                 </div>
                 <div class="invalid-feedback">
-                    {{ recipe_form.form_blog.content.errors }}
+                    {{ form.form_blog.content.errors }}
                 </div>
             </div>
             <div class="form-group">
-                {{ recipe_form.form_blog.image.label_tag }}
-                {{ recipe_form.form_blog.image }}
+                {{ form.form_blog.image.label_tag }}
+                {{ form.form_blog.image }}
             </div>
             
             <button type="submit">Create Post</button>
@@ -64,7 +64,8 @@
                    addCssClass: 'add-ingredient', 
                    removeText: 'Remove', 
                    deleteCssClass: 'align-self-end pb-2 pl-2', 
-                   addButton: $('#add-ingredient') });
+                   addButton: $('#add-ingredient'),
+                   prefix: 'ingredient' });
            })
     </script>
 {% endblock body %}

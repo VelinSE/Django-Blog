@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.shortcuts import reverse
 
 from PIL import Image
 from io import BytesIO
@@ -22,6 +23,10 @@ class Post(models.Model):
             ("run_exports", "Can run user and blog exports")
         )
 
+        
+    def get_absolute_url(self):
+            return reverse('DisplayPost', kwargs={'post_id': self.pk})
+
     def ResizeImage(imageInput, name,  size):
         plw_image = Image.open(imageInput)
         resized_image = plw_image.resize(size)
@@ -32,6 +37,8 @@ class Post(models.Model):
         mimeType = Image.MIME[plw_image.format]
         
         return InMemoryUploadedFile(image_io, None, name, mimeType, resized_image.size, None)
+
+    
 
 
 class Ingredient(models.Model):

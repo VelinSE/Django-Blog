@@ -48,6 +48,7 @@
             * Indicates whether delete link(s) can be displayed - when total forms > min forms
             */
             showDeleteLinks = function() {
+                //console.log(forms)
                 return minForms.length == 0 ||   // For Django versions pre 1.7
                     (minForms.val() == '' || (totalForms.val() - minForms.val() > 0));
             },
@@ -82,15 +83,17 @@
                         // We're dealing with an inline formset.
                         // Rather than remove this form from the DOM, we'll mark it as deleted
                         // and hide it, then let Django handle the deleting:
+                        del.prop('checked', true);
                         del.val('on');
                         row.hide();
                         forms = $('.' + options.formCssClass).not(':hidden');
                     } else {
                         row.remove();
                         // Update the TOTAL_FORMS count:
-                        forms = $('.' + options.formCssClass).not('.formset-custom-template');   
-                    }
-                    totalForms.val(forms.length);
+                        forms = $('.' + options.formCssClass).not('.formset-custom-template');
+                        totalForms.val(forms.length);
+                    }     
+                    
                     for (var i=0, formCount=forms.length; i<formCount; i++) {
                         // Apply `extraClasses` to form rows so they're nicely alternating:
                         applyExtraClasses(forms.eq(i), i);
@@ -114,7 +117,7 @@
                 });
             };
 
-        $$.each(function(i) {
+            $$.each(function(i) {
             var row = $(this),
                 del = row.find('input:checkbox[id $= "-DELETE"]');
             if (del.length) {
@@ -207,6 +210,7 @@
                 row.insertAfter(lastRow).show();
                 row.find(childElementSelector).each(function() {
                     updateElementIndex($(this), options.prefix, formCount);
+                    console.log(totalForms);
                 });
                 totalForms.val(formCount + 1);
                 // Check if we're above the minimum allowed number of forms -> show all delete link(s)
