@@ -34,7 +34,6 @@ CACHES = {
     }
 }
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -50,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'recepie'
+    'recepie',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +78,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # <- Here
+                'social_django.context_processors.login_redirect', # <- Here
             ],
         },
     },
@@ -165,3 +167,18 @@ REST_FRAMEWORK = {
 
 CKEDITOR_BASEPATH = "/static/blog/ckeditor/ckeditor/"
 
+AUTHENTICATION_BACKENDS = (
+ 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+ 'social_core.backends.google.GoogleOpenId',  # for Google authentication
+ 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ 'social_core.backends.github.GithubOAuth2',  # for Github authentication
+ 'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+ 
+ 'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GITHUB_KEY = '9928fba365a14a96f0da'
+SOCIAL_AUTH_GITHUB_SECRET = '10574ab5e1b9a412bc00a58ec799c5a57716e966'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '494874810472-igkvqb4ma8io2bqbt22c1etmuoebrvia.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'RHc7QVo_rJTnAuN7fOHuNWuo'

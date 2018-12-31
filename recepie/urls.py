@@ -41,5 +41,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], protected_serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^export_users/', export_excel, name="ExportExcel"),
-    url(r'^api/', include('rest.urls'))
+    url(r'^api/', include('rest.urls')),
+    url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
