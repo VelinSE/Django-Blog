@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block body %}
+<div class="container">
+    <h2>{{user.username}}</h2>
+    <h3>Welcome {{user.first_name}} {{user.last_name}}</h3>
+    {% if user.userextended.profile_image %}
+        <img src="{{ user.userextended.profile_image.url }}" alt="">
+    {% endif %}
+    <div>
+        <a href="{% url 'ProfileUpdate' %}">Edit Profile</a>
+        <a href="{% url 'PasswordChange' %}">Change password</a>
+    </div>
+    <div>
+        <a href="{% url 'CreatePost' %}" class="btn btn-success">Write</a>
+        <a href="{% url 'Logout' %}" class="btn btn-danger">Logout</a>
+        {% if perms.blog.run_exports %}
+            <a href="{% url 'ExportExcel' %}" class="btn btn-primary">Export</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}

@@ -18,4 +18,9 @@ build/
 tests/report/
 ENV/
 ENV/*
+<<<<<<< HEAD
 .vscode
+=======
+storage/
+.vscode/
+>>>>>>> develop

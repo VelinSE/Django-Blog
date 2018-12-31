@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup{% endblock %}
+
+{% block body %}
+  <div class="container">
+  <h2>Signup</h2>
+  <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+  <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {{ extended_user_form.as_p }}
+      <button class="btn btn-primary" type="submit">Signup</button>
+    </form>
+  </div>
+  
+{% endblock %}
