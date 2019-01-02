@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from blog.views import display_post, delete_post, display_all_posts, update_post, print_post, PostCreateView, PostUpdateView
+from blog.views import display_post, delete_post, display_all_posts, print_post, PostCreateView, PostUpdateView
 
 urlpatterns = [
     url(r'^posts/$', display_all_posts, name="DisplayPosts"),
