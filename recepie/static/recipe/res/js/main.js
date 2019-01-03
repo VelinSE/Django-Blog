@@ -54,7 +54,7 @@ $(window).on('load', function() {
 	$('.hero-slider').owlCarousel({
         loop: true,
         margin: 0,
-        nav: true,
+        nav: false,
         items: 1,
         dots: false,
         mouseDrag: false,
@@ -75,8 +75,8 @@ $(window).on('load', function() {
         items: 1,
         dots: false,
         autoplay: true,
-        animateOut: 'fadeOut',
-    	animateIn: 'fadeIn',
+        animateOut: 'slideOutRight',
+    	animateIn: 'none',
     });
 
 

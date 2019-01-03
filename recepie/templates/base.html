@@ -35,12 +35,12 @@
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>-->
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="{% static 'res/css/template-style.css' %}" type="text/css">
 
     <link rel="stylesheet" href="{% static 'res/css/animate.css' %}" type="text/css">
 
     <link rel="stylesheet" href="{% static 'res/css/owl.carousel.css' %}" type="text/css">
+
+    <link rel="stylesheet" href="{% static 'res/css/template-style.css' %}" type="text/css">
 
     <link rel="stylesheet" href="{% static 'res/css/style.css' %}" type="text/css">
 
@@ -60,7 +60,12 @@
                     </div>-->
                     {% if user.is_authenticated %}
                         <div class="user-panel">
-                            <a href="{% url 'Profile' %}">Profile</a>
+                            <a class="mr-3" href="{% url 'Profile' %}">Profile</a>
+                            <a class="mr-1" href="{% url 'CreatePost' %}">Write</a>
+
+                        </div>
+                        <div class="user-panel">
+                            
                         </div>
                     {% else %}
                         <div class="user-panel">
@@ -70,13 +75,13 @@
                     {% endif %}
                 </div>
             </div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-                <a class="navbar-brand ml-auto" href="{% url 'Home' %}">Recepie</a>
+            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-4">
+                <a class="pl-5 navbar-brand ml-auto" href="{% url 'Home' %}"><img src="{% static 'res/img/logo.png' %}" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse container align-items-center" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse container align-items-center pr-5" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item d-flex mr-3">
                             <a class="nav-link align-self-center" href="{% url 'Home' %}">Home</a>

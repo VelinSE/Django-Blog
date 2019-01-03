@@ -129,6 +129,8 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['posts_latest'] = Post.objects.all()[:6]
-        
+        posts = Post.objects.all()
+        context['posts_latest'] = posts[:6]
+        context['posts_featured'] = Post.objects.filter(title__icontains='qe')[:1]
+        context['posts_all'] = posts
         return context
