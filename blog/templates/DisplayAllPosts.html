@@ -10,12 +10,25 @@
         </div>
     </section>
 	<!-- Hero section end -->
+    <!-- Search section -->
+	<div class="search-form-section">
+		<div class="sf-warp">
+			<div class="container">
+				<form class="big-search-form d-flex">
+                    {% csrf_token %}
+					<input class="flex-grow-1" type="text" placeholder="Search Recipes">
+					<button class="bsf-btn"><i class="fa fa-search mr-2"></i>Search</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Search section end -->
     <section class="recipes-page spad">
         <div class="container">
 			<div class="row">
 				<div class="col-md-8">
 					<div class="section-title">
-						<h2>Latest recipes</h2>
+						<h2>All recipes</h2>
 					</div>
 				</div>
 			</div>
@@ -46,4 +59,6 @@
                     </div>
                 {% endfor %}
             </div>
-{% endblock body %}
+        </div>
+    </section>
+{% endblock %}
