@@ -32,4 +32,5 @@ tinycss2==0.6.1
 urllib3==1.24.1
 WeasyPrint==43
 webencodings==0.5.1
+whitenoise==4.1.2
 XlsxWriter==1.1.2
