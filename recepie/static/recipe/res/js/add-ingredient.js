@@ -15,3 +15,10 @@
     });
   }, false);
 })();
+
+(function() {
+  $('#delete_button').on('click', function() {
+    console.log('ada');
+    $('#delete_form').submit();
+  })
+})();
