@@ -75,7 +75,7 @@ def update_profile(request):
     })
 
 def protected_serve(request, path, document_root = None, show_indexes = False):
-    home_dir, filename = path.split("/")
+    home_dir, filename = path.split("/", 1)
     if home_dir == "blog_image":
         if request.user.is_authenticated:
             if request.user.has_perm('blog.view_original_img'):
