@@ -7,6 +7,7 @@ from django.http.response import HttpResponseForbidden
 from django.http import HttpResponse
 from django.core.files import File
 from django.db import transaction
+from django.views.generic import TemplateView
 
 from blog.models import Post
 
@@ -122,3 +123,12 @@ def export_excel(request):
     response.write(output.read())
 
     return response
+
+class HomePageView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        context['posts_latest'] = Post.objects.all()[:6]
+        
+        return context

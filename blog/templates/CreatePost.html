@@ -67,5 +67,8 @@
                    addButton: $('#add-ingredient'),
                    prefix: 'ingredient' });
            })
+           $('#clear').on('click', function() {
+               $('#id_post-image').val('');
+           })
     </script>
 {% endblock body %}

@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.http import HttpRequest, HttpResponseRedirect
 from django.forms import modelformset_factory, inlineformset_factory
 from django.views import View
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic import FormView, UpdateView
 
 from blog.forms import BlogCreationForm, PostUpdateForm, IngredientsForm, RecipeCreateForm, RecipeUpdateForm
 from blog.models import Post, Ingredient
