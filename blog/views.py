@@ -1,20 +1,22 @@
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse, reverse_lazy
-from django.http import HttpRequest, HttpResponseRedirect
-from django.forms import modelformset_factory, inlineformset_factory
-from django.views import View
 from django.views.generic import FormView, UpdateView
+from django.utils.decorators import method_decorator
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+
+from weasyprint import HTML
 
 from blog.forms import BlogCreationForm, IngredientsForm, RecipeCreateForm, RecipeUpdateForm
 from blog.models import Post, Ingredient
-
-from weasyprint import HTML
 
 class PostCreateView(FormView):
     template_name = 'CreatePost.html'
     form_class = RecipeCreateForm
     success_url = reverse_lazy('DisplayPosts')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PostCreateView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         form = form.save(self.request.user)
@@ -25,6 +27,14 @@ class PostUpdateView(UpdateView):
     form_class = RecipeUpdateForm
     model = Post
     pk_url_kwarg = 'post_id'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        post = get_object_or_404(Post, id=kwargs['post_id'])
+        if  post.user == self.request.user:
+            return super(PostUpdateView, self).dispatch(*args, **kwargs)
+        else:
+            return redirect('DisplayPost', post_id = post.id)
 
     def form_valid(self, form):
         form = form.save(self.request.user)

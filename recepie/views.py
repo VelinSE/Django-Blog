@@ -1,10 +1,10 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required, permission_required
+from django.http import HttpResponse
+from django.http.response import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.views.static import serve
-from django.http.response import HttpResponseForbidden
-from django.http import HttpResponse
 from django.core.files import File
 from django.db import transaction
 from django.views.generic import TemplateView
@@ -50,7 +50,7 @@ def change_password(request):
         form = UserChangePasswordForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('Profile')
     else: 
         form = UserChangePasswordForm(request.user)
