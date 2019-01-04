@@ -72,3 +72,9 @@
     -moz-box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
     box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
 }
+
+.in-search-span {
+    margin-right: 17px;
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
