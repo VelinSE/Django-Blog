@@ -61,11 +61,11 @@
                     {% if user.is_authenticated %}
                         <div class="user-panel">
                             <a class="mr-3" href="{% url 'Profile' %}">Profile</a>
-                            <a class="mr-1" href="{% url 'CreatePost' %}">Write</a>
+                            <a class="mr-3" href="{% url 'CreatePost' %}">Write</a>
 
-                        </div>
-                        <div class="user-panel">
-                            
+                        {% if user.is_staff %}
+                            <a class="mr-3" href="{% url 'admin:index' %}">Admin</a>
+                        {% endif %}
                         </div>
                     {% else %}
                         <div class="user-panel">
