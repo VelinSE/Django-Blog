@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.forms import SetPasswordForm
 from django.http import HttpResponse
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render, redirect
@@ -47,13 +48,20 @@ def profile(request):
 @login_required
 def change_password(request):
     if request.method == "POST":
-        form = UserChangePasswordForm(request.user, request.POST)
+        if request.user.has_usable_password():
+            form = UserChangePasswordForm(request.user, request.POST)
+        else:
+            form = SetPasswordForm(request.user, request.POST)
+
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('Profile')
     else: 
-        form = UserChangePasswordForm(request.user)
+        if request.user.has_usable_password():
+            form = UserChangePasswordForm(request.user)
+        else:
+            form = SetPasswordForm(request.user)
     return render(request, 'change_password.html', { 'form' : form })
 
 @login_required
