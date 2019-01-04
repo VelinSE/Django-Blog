@@ -61,7 +61,7 @@
 	<!-- Add section end -->
 
 	<!-- Latest section -->
-	<section class="recipes-section spad pt-0">
+	<section class="recipes-section spad pt-0 vh100">
 		<div class="container">
 			<div class="section-title">
 				<h2>Latest recipes</h2>
@@ -71,11 +71,13 @@
                     <div class="col-lg-4 col-md-6">
                         <a href="{% url 'DisplayPost' post.id %}">
                             <div class="recipe">
-                                {% if post.thumbnail %}
-                                <img src="{{ post.thumbnail.url }}" alt="">
-                                {% else %}
-                                <img src="{% static 'res/img/recipes/1.jpg' %}" alt="">
-                                {% endif %}
+								<div class="thumbnail">
+                                    {% if post.thumbnail %}
+                                        <img src="{{ post.thumbnail.url }}" alt="">
+									 {% else %}
+										<img src="{% static 'res/img/recipes/1.jpg' %}" alt="">
+									{% endif %}
+                                </div>
                                 <div class="recipe-info-warp">
                                     <div class="recipe-info">
                                         <h3>{{ post.title }}</h3>

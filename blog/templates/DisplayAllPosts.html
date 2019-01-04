@@ -23,7 +23,7 @@
 		</div>
 	</div>
 	<!-- Search section end -->
-    <section class="recipes-page spad">
+    <section class="recipes-page spad vh100">
         <div class="container">
 			<div class="row">
 				<div class="col-md-8">
@@ -37,11 +37,13 @@
                     <div class="col-lg-4 col-md-6">
                         <a href="{% url 'DisplayPost' post.id %}">
                             <div class="recipe">
-                                {% if post.thumbnail %}
-                                <img src="{{ post.thumbnail.url }}" alt="">
-                                {% else %}
-                                <img src="{% static 'res/img/recipes/1.jpg' %}" alt="">
-                                {% endif %}
+                                <div class="thumbnail">
+                                    {% if post.thumbnail %}
+                                        <img src="{{ post.thumbnail.url }}" alt="">
+                                    {% else %}
+										<img src="{% static 'res/img/recipes/1.jpg' %}" alt="">
+									{% endif %}
+                                </div>
                                 <div class="recipe-info-warp">
                                     <div class="recipe-info">
                                         <h3>{{ post.title }}</h3>

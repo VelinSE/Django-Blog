@@ -3,7 +3,9 @@
 {% block body %}
     <section class="recipe-details-section">
 		<div class="recipe-view-section mb-3 d-flex flex-column">
-			<div class="rv-warp set-bg mt-1 pr-4" data-setbg="{{ post.image.url }}"></div>
+			{% if post.image %}
+				<div class="rv-warp set-bg mt-1 pr-4" data-setbg="{{ post.image.url }}"></div>
+			{% endif %}
 			<div class="recipe-meta mb-2 align-self-center post-title pb-3 px-5 d-flex align-items-end justify-content-center">
 				<h2>{{ post.title }}</h2>
 			</div>
@@ -86,4 +88,24 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		'use strict'
+		$('#delete_button').confirm({
+			content: 'Are you sure you want to delete?',
+			title: 'Delete?',
+			buttons: {
+				yes: {
+					text: 'Yes!',
+					action: function () {
+					// here the button key 'hey' will be used as the text.
+					$('#delete_form').submit();
+					}
+				},
+				no: {
+					text: 'No!', // With spaces and symbols
+
+				}
+			}
+		});
+	</script>
 {% endblock body %}

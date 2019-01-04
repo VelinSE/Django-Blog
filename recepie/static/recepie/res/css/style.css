@@ -50,3 +50,25 @@
 .vh100 {
     min-height: 100vh;
 }
+
+.thumbnail {
+    width: 350px;
+}
+
+.pink {
+    background: #ff2a6b;
+}
+
+.transparent {
+    filter: opacity(1)
+}
+
+.btn.pink {
+    color: white;
+}
+
+.login-shadow {
+    -webkit-box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
+    -moz-box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
+    box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
+}
