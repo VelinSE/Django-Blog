@@ -92,10 +92,10 @@
                         <li class="nav-item d-flex mr-3">
                             <a class="nav-link align-self-center" href="{% url 'DisplayPosts' %}">Recipes</a>
                         </li>
-                        <form class="form-inline my-lg-0 d-flex align-items-center mr-3">
+                        <form  method="GET" action="{% url 'DisplayPosts' %}"  class="form-inline my-lg-0 d-flex align-items-center mr-3">
                             <div class="header-search d-flex">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                <a href="#"><i class="fa fa-search"></i></a>
+                                <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button type="submit" class="btn btn-native"><i class="fa fa-search"></i></button>
                             </div>
                         </form>
                     </ul>
