@@ -7,6 +7,7 @@
   <h2>Signup</h2>
   <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
   <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+  <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a><br>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
