@@ -1,4 +1,4 @@
-#Welcome to Recepie, a website about sharing recipes
+# Welcome to Recepie, a website about sharing recipes
 
 This application is written in python using **Django v2.1**. Django uses the MVT (Model - View - Template) pattern which is pretty much the same as MVC (Model - View - Controller). The MVC *controller* is the same in MVT, it is just called *view*, and the MVC *view* is called *template* in MVT
 
@@ -7,8 +7,6 @@ The structure of the app as the convention says, each feature is put in a separa
 ---
 
 ## Link to the live application - [Recepie](https://ledjango.herokuapp.com/)
-
----
 
 ## CORE FUNCTIONALITIES
 * ###### Blade Usage
