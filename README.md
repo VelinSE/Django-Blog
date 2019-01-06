@@ -67,10 +67,18 @@ The structure of the app as the convention says, each feature is put in a separa
     * Last name 
 
 * ###### Export content to PDF
+    A recipe can be printed by a visitor of our website. Printed recipe is a simple html file, that can be downloaded.
+    Included data:
+    *  Recipe name
+    *  Cooking time
+    *  Servings
+    *  Ingredients
+    *  Instructions(content)
 
 * ###### API Users
-
+    API supports full CRUD operations for users. Currently, it's available only to administrators
 * ###### API Content
+    API supports full CRUD operations for users. Available to all users, however, reasonably only authors can edit their recipes
 
 * ###### 3rd party package usage
     * PIL -> Image manupulation
