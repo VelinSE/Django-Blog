@@ -14,7 +14,6 @@
 .edit {
     -webkit-clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
     clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
-    
 }
 
 .delete {
@@ -35,9 +34,9 @@
     height: 90px;
     text-align: center;
 
-    -webkit-box-shadow: -4px 10px 13px -6px rgba(0,0,0,0.3);
-    -moz-box-shadow: -4px 10px 13px -6px rgba(0,0,0,0.3);
-    box-shadow: -4px 10px 13px -6px rgba(0,0,0,0.3);
+    /* -webkit-box-shadow: -4px 10px 13px -6px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: -4px 10px 13px -6px rgba(0, 0, 0, 0.3);
+    box-shadow: -4px 10px 13px -6px rgba(0, 0, 0, 0.3); */
 }
 
 .post-title h2 {
@@ -67,10 +66,12 @@
     color: white;
 }
 
-.login-shadow {
-    -webkit-box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
-    -moz-box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
-    box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
+.profile {
+    background: #eff3f7
+}
+
+.profile .recipe-filter-warp .filter-top .filter-top-text p {
+    font-size: 150%;
 }
 
 .in-search-span {
@@ -96,4 +97,8 @@
     color: #fff;
     background-color: #ff2a6b;
     border-color: #ff2a6b;
+}
+
+.recipe .recipe-info-warp {
+    width: 80%;
 }

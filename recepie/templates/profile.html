@@ -2,23 +2,88 @@
 
 {% block title %} Profile {% endblock title %}
 
+{% load static %}
+
 {% block body %}
-<div class="container vh100">
-    <h2>{{user.username}}</h2>
-    <h3>Welcome {{user.first_name}} {{user.last_name}}</h3>
-    {% if user.userextended.profile_image %}
-        <img src="{{ user.userextended.profile_image.url }}" alt="">
-    {% endif %}
-    <div>
-        <a href="{% url 'ProfileUpdate' %}">Edit Profile</a>
-        <a href="{% url 'PasswordChange' %}">Change password</a>
+<!-- Hero section -->
+<section class="page-top-section set-bg" data-setbg="{% static 'res/img/page-top-bg.jpg' %}">
+    <div class="container">
+        <h2>Recipes</h2>
     </div>
-    <div>
-        <a href="{% url 'CreatePost' %}" class="btn btn-success">Write</a>
-        <a href="{% url 'Logout' %}" class="btn btn-danger">Logout</a>
-        {% if perms.blog.run_exports %}
-            <a href="{% url 'ExportExcel' %}" class="btn btn-primary">Export</a>
-        {% endif %}
+</section>
+<!-- Hero section end -->
+<div class="row vh100">
+    <div class="col-lg-8 mx-5 bg-white">
+        <section class="recipes-page spad vh100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="section-title">
+                            <h2>My recipes</h2>
+                        </div>
+                    </div>
+                    <div class="">
+                        <a href="{% url 'CreatePost' %}" class="btn pink align-self-center">Write</a>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for post in posts %}
+                        <div class="col-xl-5 col-lg-6 col-md-6">
+                            <a href="{% url 'DisplayPost' post.id %}">
+                                <div class="recipe">
+                                    <div class="thumbnail">
+                                        {% if post.thumbnail %}
+                                            <img src="{{ post.thumbnail.url }}" alt="">
+                                        {% else %}
+                                            <img src="{% static 'res/img/recipes/1.jpg' %}" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div class="recipe-info-warp">
+                                        <div class="recipe-info">
+                                            <h3>{{ post.title }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 pr-5 my-2 spad ">
+        <div class="d-flex flex-column profile">
+            <div class="recipe-filter-warp">
+                <div class="filter-top">
+                    <div class="filter-top-text">
+                        <p>{{user.username}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4">
+                {% if user.userextended.profile_image %}
+                    <img src="{{ user.userextended.profile_image.url }}" alt="">
+                {% endif %}
+
+                <div class="my-4">
+                    <h3>Welcome, <br><strong> {{user.first_name}} {{user.last_name}} </strong></h3>
+            
+                    <div class="d-flex">
+                        <a class="mr-3" href="{% url 'ProfileUpdate' %}">Edit Profile</a>
+                        <a href="{% url 'PasswordChange' %}">Change password</a>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'Logout' %}" class="btn btn-danger">Logout</a>
+                    {% if perms.blog.run_exports %}
+                        <a href="{% url 'ExportExcel' %}" class="btn btn-primary">Export</a>
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+    
     </div>
 </div>
 {% endblock body %}

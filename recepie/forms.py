@@ -43,24 +43,29 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'})
+        }
 
 class UserChangePasswordForm(forms.Form):
     old_password = forms.CharField(
         label=("Old password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autofocus': True}),
+        widget=forms.PasswordInput(attrs={'autofocus': True, 'class': 'form-control'}),
     )
 
     new_password1 = forms.CharField(
         label=("New password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
 
     new_password2 = forms.CharField(
         label=("Confirm password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
 
     def __init__(self, user, *args, **kwargs):

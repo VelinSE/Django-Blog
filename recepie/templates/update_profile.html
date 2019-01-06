@@ -3,14 +3,22 @@
 {% block title %}Update{% endblock %}
 
 {% block body %}
-  <div class="container vh100">
-  <h2>Update</h2>
-    <form method="post"  enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ user_form.as_p }}
-      {{ extended_user_form.as_p }}
-      <button class="btn btn-primary" type="submit">Update</button>
-    </form>
-  </div>
-  
+  <div class="row pink vh100">
+      <div class="col-lg-3 pink"></div>
+      <div class="col-lg-6 mt-3 mb-5 bg-white shadow-sm d-flex flex-column justify-content-center">
+        {% comment %} <div class="col-lg-3"></div> {% endcomment %}
+        <div class="col-lg-6 align-self-center mt-5">
+          <h2>Update</h2>
+          <form method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ extended_user_form.as_p }}
+            <button class="btn pink" type="submit">Update</button>
+          </form>
+        </div>
+        
+        {% comment %} <div class="col-lg-3"></div> {% endcomment %}
+      </div>
+      <div class="col-lg-3 pink"></div>
+    </div>
 {% endblock %}

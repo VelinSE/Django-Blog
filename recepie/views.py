@@ -40,8 +40,9 @@ def signup(request):
 
 @login_required
 def profile(request):
+    posts = Post.objects.filter(user=request.user)
     if request.user.is_authenticated:
-        return render(request, 'profile.html', { "user" : request.user})
+        return render(request, 'profile.html', { "user" : request.user, "posts": posts})
     else:
         return redirect('Login')
 

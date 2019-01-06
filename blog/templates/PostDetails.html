@@ -6,28 +6,21 @@
 			{% if post.thumbnail %}
 				<div class="rv-warp set-bg mt-1 pr-4" data-setbg="{{ post.thumbnail.url }}"></div>
 			{% endif %}
-			<div class="recipe-meta mb-2 align-self-center post-title pb-3 px-5 d-flex align-items-end justify-content-center">
-				<h2>{{ post.title }}</h2>
-			</div>
 		</div>
 		<div class="container vh100">
-			<div class="recipe-meta">
-			</div>
-			<div class="row">
-				<div class="col-lg-7">
-					
+			<div class="row mb-5">
+				<div class="col-lg-8">
+					<div class="racipe-cata pl-3">
+						<span>{{post.user.first_name}} {{post.user.last_name}}</span>
+					</div>
+					<div class="recipe-meta pl-3">
+						<h2>{{ post.title }}</h2>
+					</div>
 				</div>
 			</div>
+			
 			<div class="row">
-				<div class="col-lg-7">
-					
-					<ul class="recipe-info-list">
-						<li>
-							{{ post.content|safe }}
-						</li>
-					</ul>
-				</div>
-				<div class="col-lg-5 pl-4">
+				<div class="col-lg-5">
 					<div class="recipe-filter-warp">
 						<div class="filter-top">
 							<div class="filter-top-text">
@@ -71,6 +64,14 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-lg-7">
+					<ul class="recipe-info-list">
+						<li>
+							{{ post.content|safe }}
+						</li>
+					</ul>
+				</div>
+				
 			</div>
 		</div>
 	</section>
