@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 class UserExtended(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userextended')
     profile_image = models.FileField(upload_to="avatar")    
 
     @receiver(post_save, sender=User)

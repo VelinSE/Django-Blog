@@ -1,7 +1,14 @@
 from django.contrib.auth.models import User
 
 from blog.models import Post, Ingredient
+from recepie.models import UserExtended
 from rest_framework import serializers
+
+class UserExtendedSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserExtended
+        fields = ['profile_image']
 
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -53,8 +60,39 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     posts = serializers.HyperlinkedRelatedField(many=True, view_name='post-detail', read_only=True)
+    userextended = UserExtendedSerializer(many=False)
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+    email = serializers.EmailField(required=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        if self.context['view'].action == 'update':
+            self.fields['username'].read_only = True
+            self.fields['password'].read_only = True
+
+    def create(self, validated_data):
+        userextended_validated = validated_data.pop('userextended')
+        
+        user = User.objects.create(**validated_data)
+        
+        user.userextended.profile_image = userextended_validated['profile_image']
+        user.save()
+
+        return user
+
+    def update(self, instance, validated_data):
+        userextended_validated = validated_data.pop('userextended')
+        import pdb; pdb.set_trace()
+        instance.first_name = validated_data['first_name']
+        instance.last_name = validated_data['last_name']
+        instance.userextended.profile_image = userextended_validated['profile_image']
+
+        instance.save()
+
+        return instance
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'posts')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password', 'posts', 'userextended',)
 
