@@ -102,8 +102,12 @@
 	<!-- Gallery section -->
 	<div class="gallery">
 		<div class="gallery-slider owl-carousel">
-			{% for post in posts_all %}
-				<a href="{{ post.get_absolute_url }}"><div class="gs-item set-bg" data-setbg="{{ post.thumbnail.url }}"></div></a>
+			{% for post in posts_all %}				
+				{% if post.thumbnail %}
+                    <a href="{{ post.get_absolute_url }}"><div class="gs-item set-bg" data-setbg="{{ post.thumbnail.url }}"></div></a>
+				 {% else %}
+					<a href="{{ post.get_absolute_url }}"><div class="gs-item set-bg" data-setbg="{% static 'res/img/recipes/1.jpg' %}"></div></a>
+				{% endif %}
 			{% endfor %}
 		</div>
 	</div>

@@ -4,18 +4,19 @@ from blog.models import Post, Ingredient
 from rest_framework import serializers
 
 class IngredientSerializer(serializers.ModelSerializer):
-    
-
     class Meta:
         model = Ingredient
         fields = ('name', 'metric', 'quantity')
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HyperlinkedRelatedField(view_name='user-detail', read_only=True)
-    ingredients = IngredientSerializer(many=True, allow_null=True)
+    ingredients = IngredientSerializer(many=True, allow_null=True, required=False)
 
     def create(self, validated_data):
-        ingredients_validated = validated_data.pop('ingredients')
+        ingredients_validated = []
+        if 'ingredients' in validated_data.keys():
+            ingredients_validated = validated_data.pop('ingredients')
+        
         post = Post.objects.create(**validated_data)
         
         for ingredient_data in ingredients_validated:
@@ -47,7 +48,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'content', 'cooking_time', 'servings', 'ingredients', 'user')
+        fields = ('id', 'title', 'content', 'cooking_time', 'servings', 'ingredients', 'image', 'user')
+        extra_kwargs = {'image': {'required': False}}
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     posts = serializers.HyperlinkedRelatedField(many=True, view_name='post-detail', read_only=True)
