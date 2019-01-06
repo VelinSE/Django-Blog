@@ -42,7 +42,7 @@ class Post(models.Model):
 
 
 class Ingredient(models.Model):
-    recepie = models.ForeignKey(Post, on_delete=models.CASCADE)
+    recepie = models.ForeignKey(Post, related_name='ingredients', on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
     metric = models.CharField(max_length=40)
     quantity = models.IntegerField()
