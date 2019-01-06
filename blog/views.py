@@ -1,11 +1,13 @@
 from django.db.models import Q
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView, UpdateView
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.http import FileResponse
 
 from weasyprint import HTML
+from io import BytesIO
 
 from blog.forms import BlogCreationForm, IngredientsForm, RecipeCreateForm, RecipeUpdateForm
 from blog.models import Post, Ingredient
@@ -70,9 +72,18 @@ def display_posts(request):
     return render(request, "DisplayAllPosts.html", { "posts" : posts, "query" : query})
 
 def print_post(request, post_id):
-    html = HTML(request.META['HTTP_REFERER'])
+    absolute_url = request.build_absolute_uri(reverse('PrintPreview', args=[post_id]))
+    html = HTML(absolute_url)
+    post = get_object_or_404(Post, id=post_id)
     
-    html.write_pdf('storage/media/test.pdf')
-    
+    file_name = 'storage/media/' + post.title + '.pdf'
+    html.write_pdf(file_name)
 
-    return redirect("/blog/post/" + str(post_id))
+    response = FileResponse(open(file_name, 'rb'), as_attachment=True)
+
+    return response
+
+def print_preview(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    return render(request, "PrintTemplate.html", {'post': post})

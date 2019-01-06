@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.cooking_time }}</p>
+    <p>{{ post.servings }}</p>
+    <ul>
+        {% for ingredient in ingredients %}
+        <li>{{ ingredient.quantity }} {{  ingredient.metric }} {{ ingredient.name }}</li>
+        {% endfor %}
+    </ul>
+    <p>{{ post.content|safe }}</p>
+
+</body>
+</html>
