@@ -27,9 +27,10 @@ def api_root(request, format=None):
         'posts': reverse('Posts', request=request, format=format)
     })
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
