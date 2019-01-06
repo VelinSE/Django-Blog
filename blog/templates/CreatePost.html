@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <div class="container vh100 mt-4">
-        <h2>Create Post</h2>
-        <form class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+    <h2>Update Post</h2>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data" class="needs-validation">
             {% csrf_token %}
+            {{ form.media }}
             {{ form.form_blog.media }}
+            {{ form.form_blog.non_field_errors }}
+            {{ form.form_ingredient.non_field_errors }}
             <div class="form-group mb-2">
                 {{ form.form_blog.title.label_tag }}
                 {{ form.form_blog.title }}
@@ -21,23 +24,25 @@
                 </div>
                 {{ form.form_ingredient.management_form }}
                 {% for inline_form in form.form_ingredient %}
-                    <div id="ingredient" class="form-row mb-3">
+                    <div id="ingredient" class="ingredient form-row mb-3">
                         {{ inline_form.id }}
                         <div class="col-md-1 mr-1">
                             {{ inline_form.quantity.label_tag }}
                             {{ inline_form.quantity }}
-                            {{ inline_form.quantity.errors_messages }}
                         </div>
                         <div class="col-md-2 mr-1">
                             {{ inline_form.metric.label_tag }}
                             {{ inline_form.metric }}
+
                         </div>
                         <div class="col-md-4">
                             {{ inline_form.name.label_tag }}
                             {{ inline_form.name }}
                         </div>
+                        {{inline_form.name.errors}}
                         {{ inline_form.DELETE }}
                     </div>
+                    <div class="d-flex">{{ inline_form.errors }}</div>
                 {% endfor %}
             </div>
             <div class="form-group mb-2">
@@ -45,21 +50,21 @@
                 <div>
                     {{ form.form_blog.content }}
                 </div>
-                <div class="invalid-feedback">
+                <div class="">
                     {{ form.form_blog.content.errors }}
                 </div>
             </div>
             <div class="form-group">
                 {{ form.form_blog.image.label_tag }}
                 {{ form.form_blog.image }}
+                {{ form.form_blog.errors }}
             </div>
-            
-            <button type="submit">Create Post</button>
+            <button class="btn btn-success" type="submit">Create Post</button>
         </form>
     </div>
     <script type="text/javascript">
            $(function() {
-               $('#ingredient').formset({ 
+               $('.ingredient').formset({ 
                    addText: 'Add +', 
                    addCssClass: 'add-ingredient', 
                    removeText: 'Remove', 
@@ -67,8 +72,13 @@
                    addButton: $('#add-ingredient'),
                    prefix: 'ingredient' });
            })
-           $('#clear').on('click', function() {
-               $('#id_post-image').val('');
-           })
     </script>
-{% endblock body %}
+    <script>
+         $(function() {
+             $('document').on('load', function() {
+                console.log($('.needs-validation'))
+            })
+        })
+  
+    </script>
+{% endblock body %} 

@@ -31,11 +31,13 @@
 						<!-- recipe filter form -->
 						<div class="filter-form-warp">
 							<h2>Ingredients</h2>
-								{% for ingredient in ingredients %}
-									<div class="">
-										<label>{{ ingredient.quantity }} {{  ingredient.metric }} {{ ingredient.name }}</label>
-									</div>
-								{% endfor %}
+								{% if ingredients %}
+									{% for ingredient in ingredients %}
+										<div class="">
+											<label>{{ ingredient.quantity }} {{  ingredient.metric }} {{ ingredient.name }}</label>
+										</div>
+									{% endfor %}
+								{% endif %}
 						</div>
 					</div>
 					{% if user == post.user %}

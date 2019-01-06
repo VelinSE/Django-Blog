@@ -48,7 +48,7 @@ class PostUpdateView(UpdateView):
 
 def display_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    ingredients = get_list_or_404(Ingredient, recepie=post_id)
+    ingredients = Ingredient.objects.filter(recepie=post_id)
     return render(request, "PostDetails.html", { "post" : post, "ingredients": ingredients })
 
 @login_required

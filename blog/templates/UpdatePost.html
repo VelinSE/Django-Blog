@@ -7,7 +7,8 @@
             {% csrf_token %}
             {{ form.media }}
             {{ form.form_blog.media }}
-            {{ form }}
+            {{ form.form_blog.non_field_errors }}
+            {{ form.form_ingredient.non_field_errors }}
             <div class="form-group mb-2">
                 {{ form.form_blog.title.label_tag }}
                 {{ form.form_blog.title }}
@@ -28,11 +29,11 @@
                         <div class="col-md-1 mr-1">
                             {{ inline_form.quantity.label_tag }}
                             {{ inline_form.quantity }}
-                            {{ inline_form.quantity.errors_messages }}
                         </div>
                         <div class="col-md-2 mr-1">
                             {{ inline_form.metric.label_tag }}
                             {{ inline_form.metric }}
+
                         </div>
                         <div class="col-md-4">
                             {{ inline_form.name.label_tag }}
@@ -40,6 +41,7 @@
                         </div>
                         {{ inline_form.DELETE }}
                     </div>
+                    <div class="d-flex">{{ inline_form.errors }}</div>
                 {% endfor %}
             </div>
             <div class="form-group mb-2">
@@ -55,7 +57,7 @@
                 {{ form.form_blog.image.label_tag }}
                 {{ form.form_blog.image }}
             </div>
-            <button class="btn btn-success" type="submit">Update Post</button>
+            <button class="btn pink" type="submit">Update Post</button>
         </form>
     </div>
     <script type="text/javascript">

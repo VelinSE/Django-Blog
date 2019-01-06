@@ -41,8 +41,8 @@ class BlogCreationForm(ModelForm):
         return post
 
 class IngredientsForm(ModelForm):
-    quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}), label='Quantity')
-    metric = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control', 'required': True}), choices={('Tbsp', 'Tbsp'), ('Tsp', 'Tsp'), ('ml', 'ml'), ('Gr', 'Gr'), ('Kg', 'Kg')}, label='Units')
+    quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control', 'required': True}), label='Quantity')
+    metric = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control', 'required': True}), choices={('Tbsp', 'Tbsp'), ('Tsp', 'Tsp'), ('ml', 'ml'), ('gr', 'gr'), ('kg', 'kg')}, label='Units')
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'required': True}), label='Name')
 
     class Meta:
