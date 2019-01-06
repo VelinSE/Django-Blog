@@ -3,8 +3,8 @@
 {% block body %}
     <section class="recipe-details-section">
 		<div class="recipe-view-section mb-3 d-flex flex-column">
-			{% if post.image %}
-				<div class="rv-warp set-bg mt-1 pr-4" data-setbg="{{ post.image.url }}"></div>
+			{% if post.thumbnail %}
+				<div class="rv-warp set-bg mt-1 pr-4" data-setbg="{{ post.thumbnail.url }}"></div>
 			{% endif %}
 			<div class="recipe-meta mb-2 align-self-center post-title pb-3 px-5 d-flex align-items-end justify-content-center">
 				<h2>{{ post.title }}</h2>

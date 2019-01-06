@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView, UpdateView
@@ -57,9 +58,16 @@ def delete_post(request):
 
     return redirect("/blog/posts")
 
-def display_all_posts(request):
-    posts = Post.objects.all()
-    return render(request, "DisplayAllPosts.html", { "posts" : posts})
+def display_posts(request):
+    query = request.GET.get('q')
+
+    if query:
+        posts = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
+    else:
+        posts = Post.objects.all()
+        query = ''
+
+    return render(request, "DisplayAllPosts.html", { "posts" : posts, "query" : query})
 
 def print_post(request, post_id):
     html = HTML(request.META['HTTP_REFERER'])

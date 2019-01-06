@@ -14,10 +14,16 @@
 	<div class="search-form-section">
 		<div class="sf-warp">
 			<div class="container">
-				<form class="big-search-form d-flex">
-                    {% csrf_token %}
-					<input class="flex-grow-1" type="text" placeholder="Search Recipes">
-					<button class="bsf-btn"><i class="fa fa-search mr-2"></i>Search</button>
+				<form method="GET" action="{% url 'DisplayPosts' %}" class="big-search-form d-flex">
+                    <div class="input-group mb-3">
+                        <input name="q" class="form-control flex-grow-1" id="main-search-input" value="{{ query }}" type="text" placeholder="Search Recipes">
+                        <div class="input-group-append" style="margin-right:17px;">
+                            <span class="input-group-text in-search-span" id="basic-addon2">
+                                <button type="button" class="btn btn-outline-danger btn-native-outline" onclick="clearSearchValue()"><i class="fas fa-times-circle"></i></button>
+                            </span>
+                        </div>
+                        <button type="submit" class=" bsf-btn"><i class="fa fa-search mr-2"></i>Search</button>
+                    </div>
 				</form>
 			</div>
 		</div>

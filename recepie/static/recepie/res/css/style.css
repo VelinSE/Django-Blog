@@ -72,3 +72,28 @@
     -moz-box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
     box-shadow: 12px 0px 10px -10px rgba(0,0,0,0.42);
 }
+
+.in-search-span {
+    margin-right: 17px;
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
+
+.btn-native {
+    color: #fff;
+    background: #ff2a6b;
+    border-color: #ff2a6b;
+}
+
+.btn-native-outline {
+    color: #ff2a6b;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ff2a6b;
+}
+
+.btn-native-outline:hover {
+    color: #fff;
+    background-color: #ff2a6b;
+    border-color: #ff2a6b;
+}
