@@ -7,6 +7,13 @@ The structure of the app as the convention says, each feature is put in a separa
 ---
 
 ## Link to the live application - [Recepie](https://ledjango.herokuapp.com/)
+ 
+
+ ## Usable account you can experiment with 
+| Type       | Username | Password   |
+|------------|----------|------------|
+|Normal user | normal   | logmein123 |
+|Superuser   | teacher  | logmein123 |
 
 ## CORE FUNCTIONALITIES
 * ###### Blade Usage
