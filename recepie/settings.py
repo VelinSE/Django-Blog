@@ -159,6 +159,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'storage/media')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "recepie/static/recepie"),
+    os.path.join(BASE_DIR, "staticfiles"),
 )
 
 REST_FRAMEWORK = {
