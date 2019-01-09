@@ -83,7 +83,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         userextended_validated = validated_data.pop('userextended')
-        import pdb; pdb.set_trace()
         instance.first_name = validated_data['first_name']
         instance.last_name = validated_data['last_name']
         instance.userextended.profile_image = userextended_validated['profile_image']

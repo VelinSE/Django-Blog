@@ -30,7 +30,6 @@ class UserExtendedCreationForm(forms.ModelForm):
         fields = ('profile_image',)
 
     def save(self, user):
-        import pdb; pdb.set_trace()
         user.userextended.profile_image = self.cleaned_data['profile_image']
         user.userextended.save() 
 
