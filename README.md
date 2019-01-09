@@ -87,6 +87,11 @@ The structure of the app as the convention says, each feature is put in a separa
 * ###### API Content
     API supports full CRUD operations for users. Available to all users, however, reasonably only authors can edit their recipes
 
+* ###### API Endpoints
+* https://ledjango.herokuapp.com/api/ - API Root
+* https://ledjango.herokuapp.com/api/users/ - Users
+* https://ledjango.herokuapp.com/api/posts/ - Posts
+
 * ###### 3rd party package usage
     * PIL -> Image manupulation
     * Weasyprint -> PDF exports
