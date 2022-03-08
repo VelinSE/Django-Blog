@@ -12,7 +12,7 @@ django-js-asset==1.1.0
 djangorestframework==3.9.0
 gunicorn==19.9.0
 html5lib==1.0.1
-httpie==1.0.2
+httpie==3.1.0
 idna==2.8
 oauthlib==2.1.0
 Pillow==5.3.0
